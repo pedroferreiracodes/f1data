@@ -12,9 +12,9 @@ export default {
     path: '/circuits/',
     controller: 'circuitPgController'
   },
-  films: {
-    path: '/films',
-    controller: 'filmController'
+  seasons: {
+    path: '/seasons',
+    controller: 'seasonController'
   },
   drivers: {
     path: '/drivers',

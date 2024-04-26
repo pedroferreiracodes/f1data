@@ -8,23 +8,31 @@ async function fetchDrivers() {
     const driversArr = data.MRData.DriverTable.Drivers;
 
     await Promise.all(driversArr.map(async (driver) => {
-        driver.photo = await getDriverPhoto(driver.url);
+        const croppedWikiUrl = await driver.url.split(/\/|#/).pop();
+        driver.photo = await getDriverPhoto(croppedWikiUrl);
         if (!driver.photo) {
-            driver.photo = "/rsr/img/scottChegg.jpg";
+            const remadeUrl = driver.url;
+            console.log(remadeUrl);
+            if (!driver.photo) {
+                driver.photo = "/rsr/img/scottChegg.jpg";
+            }
         }
     }));
     return driversArr;
 }
 
-async function getDriverPhoto(wikiUrl) {
+async function getDriverPhoto(croppedWikiUrl) {
+
     try {
-        const croppedWikiUrl = await wikiUrl.split("/").pop();
-        const fetchedPhotoData = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${croppedWikiUrl}&prop=pageimages&format=json&pithumbsize=420`)
+        const fetchedPhotoData = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${croppedWikiUrl}&prop=pageimages&format=json&pithumbsize=420&redirects`)
         const photodata = await fetchedPhotoData.json();
         const photovalues = photodata.query.pages;
         const aaaa = Object.values(photovalues)[0];
         const photoUrl = aaaa.thumbnail.source;
+        //console.log();
+
         return photoUrl;
+
     } catch (error) {
         return null;
     }

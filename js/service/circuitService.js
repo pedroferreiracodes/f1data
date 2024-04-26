@@ -7,31 +7,34 @@ async function fetchCircuits() {
     const circuitArr = data.MRData.CircuitTable.Circuits;
 
     await Promise.all(circuitArr.map(async (circuit) => {
-        circuit.photo = await getCircuitPhoto(circuit.url);
+        const croppedWikiUrl = await circuit.url.split(/\/|#/).pop();
+        circuit.photo = await getCircuitPhoto(croppedWikiUrl);
         if (!circuit.photo) {
-            circuit.photo = "/rsr/img/placeholder_track.jpg";
+            const remadeUrl = await circuit.url.split(/\/|#/).splice(-2, 1)[0];
+            circuit.photo = await getCircuitPhoto(remadeUrl);
+            if (!circuit.photo) {
+                circuit.photo = "/rsr/img/placeholder_track.jpg";
+            }
         }
     }));
 
     return circuitArr;
 }
 
-async function getCircuitPhoto(wikiUrl) {
+async function getCircuitPhoto(croppedWikiUrl) {
+
     try {
-        const croppedWikiUrl = await wikiUrl.split("/").pop();
-        const fetchedPhotoData = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${croppedWikiUrl}&prop=pageimages&format=json&pithumbsize=420`);
+
+        const fetchedPhotoData = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${croppedWikiUrl}&prop=pageimages&format=json&pithumbsize=420&redirects`);
         const photodata = await fetchedPhotoData.json();
         const photovalues = photodata.query.pages;
         const aaaa = Object.values(photovalues)[0];
         const photoUrl = aaaa.thumbnail.source;
 
-        if(!photoUrl){
-            console.log(aaaa);
-        } 
-
         return photoUrl;
+
     } catch (error) {
-        return null;
+        return null
     }
 }
 

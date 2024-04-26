@@ -9,7 +9,7 @@ function setCurrentRoute({ path, controller }) {
 
 async function launchController(controllerName) {
 
-  const module = await import(`./controler/${controllerName}.js`)
+  const module = await import(`./controller/${controllerName}.js`)
   module.default.init();
 }
 
@@ -17,10 +17,6 @@ function navigate(path) {
 
   if (path === routes.currentPath.path) {
     return;
-  }
-
-  if (path.startsWith('/circuits/')) {
-    launchController("circuitPgController");
   }
 
   const routeKey = Object.keys(routes).find(key => routes[key].path === path);
