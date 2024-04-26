@@ -1,4 +1,4 @@
-# RaceInfoSPA
+# raceInfoSPA
 
 // This project is currently under development
 
