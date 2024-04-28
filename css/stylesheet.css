@@ -9,41 +9,113 @@ body {
 
 .navbar {
     position: fixed;
+    display: inline-block;
+    pointer-events: none;
     width: 100%;
     top: 0;
-    height: 35px;
+    height: 45px;   display: flex;
+    justify-content: space-evenly;
 }
 
+.navbar:hover {
+    pointer-events: all;
+}
 
+#menu {
+    display: inline-block;
+    cursor: pointer;
+    pointer-events: all;
+}
 
-a,
-#anchors {
+.navDiv {
+    position: relative;
+    display: inline-block;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease, top 0.5s ease;
+    transition-delay: 0;
+    background-color: red;
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+    width: 20%;
+    text-align: center;
+}
+
+a {
     font-style: italic;
     font-weight: 700;
     text-decoration: none;
     color: rgb(255, 255, 255);
 }
 
-#anchors {
-    display: flex;
-    justify-content: space-evenly;
-    color: white;
-    background-color: yellow;
+span {
+    transition: color 0.5s ease;
 }
 
-.navDiv{
-    color: white;
-    background-color: red;
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
-    width: calc(100%/6);
-    text-align: center;
-}
-
-.navDiv:hover{
-    color: white;
+.navDiv:hover span {
+    color: rgb(206, 47, 19);
     background-color:rgb(255, 255, 255);
     clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
 }
+
+.navbar:hover .navDiv {
+    opacity: 1;
+}
+
+
+.navDiv:nth-child(n+2) {
+    transition-delay: 0s;
+}
+
+/* home */
+.navDiv:nth-child(2) {
+    transition-delay: 2s;
+    color: blue;
+}
+
+/* seasons*/
+.navDiv:nth-child(5) {
+    transition-delay: 2s;
+}
+
+/* about */
+.navDiv:nth-child(6) {
+    transition-delay: 2s;
+}
+
+/* home */
+.navbar:hover .navDiv:nth-child(2){
+    transition-delay: 0.30s;
+} 
+
+/* seasons*/
+.navbar:hover .navDiv:nth-child(5){
+    transition-delay: 0.45s;
+} 
+
+/* about */
+.navbar:hover .navDiv:nth-child(6){
+    transition-delay: 0.5s;
+} 
+
+.navbar:hover .navDiv:nth-child(7){
+    transition-delay: 0.55s;
+} 
+
+.navbar:hover .navDiv:nth-child(8){
+    transition-delay: 0.6s;
+} 
+
+.navbar:hover .navDiv:nth-child(9){
+    transition-delay: 0.65s;
+} 
+
+.navbar:hover .navDiv:nth-child(10){
+    transition-delay: 0.7s;
+} 
+
+
+
+
 
 #container{
     margin-top: 150px;
