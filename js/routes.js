@@ -14,7 +14,7 @@ export default {
   },
   seasons: {
     path: '/seasons',
-    controller: 'seasonController'
+    controller: 'seasonsController'
   },
   drivers: {
     path: '/drivers',
