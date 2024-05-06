@@ -1,4 +1,4 @@
-import homeView from './js/view/homeView.js';
+import homeView from './view/homeView.js';
 
 
 function init() {
