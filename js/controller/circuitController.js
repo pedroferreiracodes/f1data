@@ -1,5 +1,5 @@
-import circuitService from './js/service/circuitService.js';
-import circuitsView from './js/view/circuitsView.js';
+import circuitService from '../service/circuitService.js';
+import circuitsView from '../view/circuitsView.js';
 
 async function init() {
   const circuits = await circuitService.getCircuits();
