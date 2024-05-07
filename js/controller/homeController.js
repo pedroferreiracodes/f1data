@@ -1,4 +1,4 @@
-import homeView from '../../../view/homeView.js';
+import homeView from '/js/view/homeView.js';
 
 
 function init() {
@@ -6,3 +6,4 @@ function init() {
 };
 
 export default { init };
+js/controller/homeController.js
