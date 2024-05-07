@@ -1,4 +1,4 @@
-import aboutView from './js/view/aboutView.js';
+import aboutView from '/js/view/aboutView.js';
 
 function init() {
   aboutView.render();

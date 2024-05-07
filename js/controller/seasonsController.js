@@ -1,5 +1,5 @@
-import seasonsService from './service/seasonsService.js';
-import seasonsView from './view/seasonsView.js';
+import seasonsService from '/js/service/seasonsService.js';
+import seasonsView from '/js/view/seasonsView.js';
 
 async function init() {
   const seasons = await seasonsService.getSeasons();

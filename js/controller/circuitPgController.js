@@ -1,5 +1,5 @@
-import circuitService from './service/circuitService.js';
-import circuitPgView from './view/circuitPgView.js';
+import circuitService from '/js/service/circuitService.js';
+import circuitPgView from '/js/view/circuitPgView.js';
 
 async function init() {
   const currentUrl = window.location.href;
