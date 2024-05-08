@@ -1,25 +1,13 @@
-async function fetchSeasons() {
+async function fetchSeason(seasonYear) {
 
-    const response = await fetch("https://ergast.com/api/f1/seasons.json?limit=80")
+    const response = await fetch(`https://ergast.com/api/f1/${seasonYear}/constructorStandings.json`)
     const data = await response.json();
+    const season = data.MRData.StandingsTable.StandingsLists[0];
 
-    const seasonsArr = data.MRData.SeasonTable.Seasons;
 
-    await Promise.all(seasonsArr.map(async (seasonObj) => {
-     //   console.log(seasonObj.season);
-        seasonObj.champ = await getChamp(seasonObj.season);
+    season.constructorChampName = season.ConstructorStandings[0].Constructor.name
 
-       // const croppedWikiUrl = await seasonObj.url.split(/\/|#/).pop();
-/*         seasonObj.photo = await getSeasonPhoto(croppedWikiUrl);
-        if (!seasonObj.photo) {
-            const remadeUrl = await seasonObj.url.split(/\/|#/).splice(-2, 1)[0];
-            seasonObj.photo = await getSeasonPhoto(remadeUrl);
-            if (!seasonObj.photo) {
-                seasonObj.photo = "/rsr/img/placeholder_season.jpg";
-            }
-        } */
-    }));
-    return seasonsArr;
+    return season;
 }
 
 async function getChamp(seasonYear) {
@@ -38,7 +26,7 @@ async function getChamp(seasonYear) {
     }
 }
 
-async function getSeasonPhoto(croppedWikiUrl) {
+async function getChampLogo(croppedWikiUrl) {
 
     try {
 
@@ -58,17 +46,10 @@ async function getSeasonPhoto(croppedWikiUrl) {
 
 
 
-async function getSeason(sId) {
+async function getSeason(year) {
 
-    let seasons = await fetchSeasons();
-    let foundSeason = seasons.find(seasons => seasons[seasonYear] === sId);
-    console.log(season);
-    return foundSeason;
+    let season = await fetchSeason(year);
+    return season;
 };
 
-async function getSeasons() {
-    let seasons = await fetchSeasons();
-    return seasons;
-}
-
-export default { getSeason, getSeasons };
+export default { getSeason };

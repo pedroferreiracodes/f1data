@@ -151,6 +151,10 @@ span {
     padding: 2%;
 }
 
+.cardDiv.seasonCard {
+    max-width: 90%;
+}
+
 .cardDiv:hover {
 
     background-color: rgb(157, 157, 157);

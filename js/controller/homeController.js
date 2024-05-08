@@ -6,4 +6,3 @@ function init() {
 };
 
 export default { init };
-js/controller/homeController.js
