@@ -10,12 +10,13 @@ async function init() {
 
   seasonsView.clear();
 
-const date = new Date();
-let currentYear = date.getFullYear();
+  const date = new Date();
+  let currentYear = date.getFullYear();
 
 
   for (let i = currentYear; i > 1950; i--) {
     const season = await seasonsService.getSeason(i);
+    console.log(season);
     seasonsView.render(season);
   }
 };
