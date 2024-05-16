@@ -16,7 +16,7 @@ async function init() {
 
   for (let i = currentYear; i > 1950; i--) {
     const season = await seasonsService.getSeason(i);
-    console.log(season);
+    //console.log(season);
     seasonsView.render(season);
   }
 };

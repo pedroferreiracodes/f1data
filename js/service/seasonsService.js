@@ -9,10 +9,9 @@ async function fetchSeason(seasonYear) {
 
     season.constructorChampName = season.ConstructorStandings[0].Constructor.name;
     //console.log(driverChamp);
-    const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();;
-    season.champLogo = await getChampLogo(wikiUrl);
-
-
+    const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
+    season.champLogo = await getChampLogo(season.constructorChampName);
+    
     return season;
 }
 
@@ -33,23 +32,16 @@ async function getChamp(seasonYear) {
     }
 }
 
-async function getChampLogo(croppedWikiUrl) {
+async function getChampLogo(constructorChampName) {
 
-    try {
+    switch (constructorChampName) {
+        case "Red Bull":
+        return "rsr/img/teams/red_bull.png";
 
-        const fetchedPhotoData = await fetch(`https://en.wikipedia.org/w/api.php?origin=*&action=query&titles=${croppedWikiUrl}&prop=pageimages&format=json&pithumbsize=420&redirects`);
-        const photodata = await fetchedPhotoData.json();
-        const photovalues = photodata.query.pages;
-        const aaaa = Object.values(photovalues)[0];
-        const photoUrl = aaaa.thumbnail.source;
-
-        console.log(fetchedPhotoData);
-
-        return photoUrl;
-
-    } catch (error) {
-        return null
+        case "Mercedes":
+        return "rsr/img/teams/mercedes.JPG";
     }
+   
 }
 
 
