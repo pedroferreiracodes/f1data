@@ -11,7 +11,7 @@ async function fetchSeason(seasonYear) {
     //console.log(driverChamp);
     const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
     season.champLogo = await getChampLogo(season.constructorChampName);
-    
+
     return season;
 }
 
@@ -34,14 +34,54 @@ async function getChamp(seasonYear) {
 
 async function getChampLogo(constructorChampName) {
 
+    if (constructorChampName.includes("Lotus")) {
+            return "rsr/img/teams/logo_lotus.jpg";
+    };
+
     switch (constructorChampName) {
         case "Red Bull":
-        return "rsr/img/teams/red_bull.png";
+            return "rsr/img/teams/logo_redbull.jpg";
 
         case "Mercedes":
-        return "rsr/img/teams/mercedes.JPG";
+            return "rsr/img/teams/logo_mercedes.jpg";
+
+        case "Brawn":
+            return "rsr/img/teams/logo_brawn.jpg";
+
+        case "Ferrari":
+            return "rsr/img/teams/logo_ferrari.jpg";
+
+        case "Renault":
+            return "rsr/img/teams/logo_renault.jpg";
+
+        case "McLaren":
+            return "rsr/img/teams/logo_mclaren.jpg";
+
+        case "Williams":
+            return "rsr/img/teams/logo_williams.jpg";
+        
+        case "Benetton":
+            return "rsr/img/teams/logo_benetton.jpg"
+
+        case "Tyrrell":
+            return "rsr/img/teams/logo_tyrrell.jpg";
+        
+        case "Matra-Ford":
+            return "rsr/img/teams/logo_matra.jpg";
+
+        case "Brabham-Repco":
+            return "rsr/img/teams/logo_brabham.jpg";
+        
+        case "BRM":
+            return "rsr/img/teams/logo_brm.jpg";
+        
+        case "Cooper-Climax":
+            return "rsr/img/teams/logo_cooper.jpg";
+
+        case "Vanwall":
+            return "rsr/img/teams/logo_vanwall.jpg"
     }
-   
+
 }
 
 
