@@ -1,11 +1,11 @@
 async function render(circuits) {
 
-  const container = document.querySelector('#container');
+ const container = $("#container");
   container.innerHTML = ''
 
-  const formDiv = document.createElement('div');
+  const formDiv = $("#div");
   formDiv.style = `display: flex; justify-content: center; position: sticky; top:0px; padding: 10px; z-index: 1; background-color: grey; `;
-  const filterForm = document.createElement('form');
+  const filterForm = $("#form");
   filterForm.style = `background-color: white; padding-top: 0.2%; padding-bottom: 0.2%; padding-left: 8%; padding-right: 8%; border-radius: 5px`;
 
   const countryInput = document.createElement('input');
@@ -20,9 +20,9 @@ async function render(circuits) {
     renderCircuits(filteredCircuits);
   });
 
-  filterForm.appendChild(countryInput);
-  formDiv.appendChild(filterForm);
-  container.appendChild(formDiv);
+  filterForm.append(countryInput);
+  formDiv.append(filterForm);
+    container.append(formDiv);
 
   const list = document.createElement('div');
   list.innerHTML = `<div class="list"></div>`
@@ -50,7 +50,7 @@ async function render(circuits) {
 
   renderCircuits(circuits);
 
-  container.appendChild(list);
+    container.append(list);
 }
 
 export default { render };

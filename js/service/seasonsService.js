@@ -1,16 +1,16 @@
 async function fetchSeason(seasonYear) {
 
-    const driverChamp = await getChamp(seasonYear);
-
     const response = await fetch(`https://ergast.com/api/f1/${seasonYear}/constructorStandings.json`)
     const data = await response.json();
     const season = data.MRData.StandingsTable.StandingsLists[0];
 
+    season.driverChamp = await getChamp(seasonYear);
 
     season.constructorChampName = season.ConstructorStandings[0].Constructor.name;
     //console.log(driverChamp);
     const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
     season.champLogo = await getChampLogo(season.constructorChampName);
+    season.driverChampName = await getDriverChampName(season.driverChamp);
 
     return season;
 }
@@ -24,7 +24,6 @@ async function getChamp(seasonYear) {
         champObj.driverObj = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Driver;
         champObj.constructor = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Constructors[0].name;
 
-
         return champObj;
 
     } catch (error) {
@@ -35,7 +34,7 @@ async function getChamp(seasonYear) {
 async function getChampLogo(constructorChampName) {
 
     if (constructorChampName.includes("Lotus")) {
-            return "rsr/img/teams/logo_lotus.jpg";
+        return "rsr/img/teams/logo_lotus.jpg";
     };
 
     switch (constructorChampName) {
@@ -59,22 +58,22 @@ async function getChampLogo(constructorChampName) {
 
         case "Williams":
             return "rsr/img/teams/logo_williams.jpg";
-        
+
         case "Benetton":
             return "rsr/img/teams/logo_benetton.jpg"
 
         case "Tyrrell":
             return "rsr/img/teams/logo_tyrrell.jpg";
-        
+
         case "Matra-Ford":
             return "rsr/img/teams/logo_matra.jpg";
 
         case "Brabham-Repco":
             return "rsr/img/teams/logo_brabham.jpg";
-        
+
         case "BRM":
             return "rsr/img/teams/logo_brm.jpg";
-        
+
         case "Cooper-Climax":
             return "rsr/img/teams/logo_cooper.jpg";
 
@@ -84,7 +83,10 @@ async function getChampLogo(constructorChampName) {
 
 }
 
-
+async function getDriverChampName(driverObj) {
+    const driverName = driverObj.driverObj.givenName + " "+ driverObj.driverObj.familyName;
+    return driverName;
+}
 
 
 async function getSeason(year) {
