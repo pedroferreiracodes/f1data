@@ -136,10 +136,15 @@ span {
 
 
 #container {
+    margin: auto;
     margin-top: 150px;
     display: block;
     align-items: center;
     justify-content: center;
+}
+
+.viewTitle{
+    max-width: 96%;
 }
 
 .cardDiv {

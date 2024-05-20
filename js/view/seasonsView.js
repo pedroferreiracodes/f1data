@@ -1,5 +1,6 @@
 function clear() {
   const container = $('#container');
+  container.html('')
   const seasonsTitle = $("<div>").addClass("viewTitle");
   seasonsTitle.html(`<h1>SEASONS</h1>`);
   container.append(seasonsTitle);

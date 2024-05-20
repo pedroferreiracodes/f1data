@@ -1,6 +1,11 @@
+function clear() {
+  const container = $('#container');
+  container.html('')
+}
+
 function render() {
   const container = $('#container');
-  container.innerHTML = '';
+  container.html = ('');
   const backgroundImage = document.createElement('div');
   backgroundImage.innerHTML = `<img src="rsr/img/homescreen_background.jpeg" alt="Racetrack at night" style="width: 100%"></img>`
   container.append(backgroundImage);
@@ -16,4 +21,4 @@ function render() {
 
 }
 
-export default { render };
+export default { clear, render };

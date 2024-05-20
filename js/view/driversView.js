@@ -1,3 +1,9 @@
+function clear() {
+  const container = $('#container');
+  container.html('')
+}
+
+
 async function render(drivers) {
 
   const container = document.querySelector('#container');
@@ -55,5 +61,5 @@ async function render(drivers) {
 
 
 
-export default { render };
+export default { clear, render };
 
