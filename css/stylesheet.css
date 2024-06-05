@@ -1,7 +1,7 @@
 body {
     font-family: "Poppins";
-    background-color: black;
-    color: aliceblue;
+    background-color: rgb(15, 15, 10);
+    color: #FDFDFD;
     padding: 0px;
     margin: 0px;
     width: 100%;
@@ -20,7 +20,6 @@ body {
     z-index: 10;
 }
 
-
 .box {
     display: flex;
     justify-content: center;
@@ -29,51 +28,52 @@ body {
     height: 45px;
     cursor: pointer;
     pointer-events: all;
+    border-color: #FDFDFD;
+    border-width: 1px;
+    border-style: solid;
 }
 
 #menuspan {
     display: block;
     width: 30px;
     height: 4px;
-    background: #fff;
+    background: #fdfdfd;
     margin: 4px;
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
 }
 
 a {
-    font-style: italic;
+    font-size: 25px;
     font-weight: 700;
+    font-style: italic;
     text-decoration: none;
-    color: rgb(255, 255, 255);
+    color: #fdfdfd;
 }
+
 .navDiv {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
     opacity: 0;
     transition: opacity 0.5s ease, top 0.5s ease;
     transition-delay: 0;
-    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
     width: 20%;
-    margin-left: -1%;
-    margin-right: -1%;
     text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #fdfdfd;
 }
 
-span {
-    transition: color 0.5s ease;
-}
 
 .navbar:hover {
-    background-color: black;
+    background-color: rgb(15,15,10);
     pointer-events: all;
+    opacity: 1;
 }
 
 .navDiv:hover {
-    color: black;
-    background-color: yellow;
+    color: rgb(15, 15, 10);
+    background-color: #ffff33;
 }
 
 .navbar:hover .navDiv {
@@ -81,55 +81,6 @@ span {
 }
 
 
-.navDiv:nth-child(n+2) {
-    transition-delay: 0s;
-}
-
-/* home */
-.navDiv:nth-child(2) {
-    transition-delay: 2s;
-}
-
-/* seasons*/
-.navDiv:nth-child(5) {
-    transition-delay: 2s;
-}
-
-/* about */
-.navDiv:nth-child(6) {
-    transition-delay: 2s;
-}
-
-/* home */
-.navbar:hover .navDiv:nth-child(2) {
-    transition-delay: 0.30s;
-}
-
-/* seasons*/
-.navbar:hover .navDiv:nth-child(5) {
-    transition-delay: 0.45s;
-}
-
-/* about */
-.navbar:hover .navDiv:nth-child(6) {
-    transition-delay: 0.5s;
-}
-
-.navbar:hover .navDiv:nth-child(7) {
-    transition-delay: 0.55s;
-}
-
-.navbar:hover .navDiv:nth-child(8) {
-    transition-delay: 0.6s;
-}
-
-.navbar:hover .navDiv:nth-child(9) {
-    transition-delay: 0.65s;
-}
-
-.navbar:hover .navDiv:nth-child(10) {
-    transition-delay: 0.7s;
-}
 
 
 
@@ -143,8 +94,23 @@ span {
     justify-content: center;
 }
 
-.viewTitle{
+.viewTitle {
     max-width: 96%;
+}
+
+.homeTitle {
+    border-style: solid;
+    border-width: 2px;
+    border-color: aqua;
+    font-style: italic;
+    font-size: 30pt;
+    font-weight: 900;
+    text-align: end;
+    padding-right: 15px;
+}
+
+.homeTitle h1{
+    font-weight: 900;
 }
 
 .cardDiv {
@@ -160,7 +126,7 @@ span {
     max-width: 90%;
 }
 
-.cardDiv.cardImg{
+.cardDiv.cardImg {
     display: block;
 }
 
@@ -186,6 +152,6 @@ h3 .cardDiv.seasonCard {
     flex-grow: 1;
 }
 
-.card-title{
+.card-title {
     color: black;
 }

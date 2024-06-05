@@ -1,16 +1,19 @@
 function clear() {
   const container = $('#container');
-  container.html('')
+  container.html('');
 }
 
 function render() {
   const container = $('#container');
-  container.html = ('');
-  const backgroundImage = document.createElement('div');
-  backgroundImage.innerHTML = `<img src="rsr/img/homescreen_background.jpeg" alt="Racetrack at night" style="width: 100%"></img>`
-  container.append(backgroundImage);
+
+  const homeTitle = $("<div>").addClass("homeTitle");
+  homeTitle.html(`<h1>F1DATA</h1>`);
+  container.append(homeTitle);
+
 
   const currentSeasonTitle = $("<div>");
+
+
   currentSeasonTitle.css({
     "display": "inline",
     "flex-wrap": "wrap",
@@ -18,6 +21,8 @@ function render() {
     "gap": "10px",
     "padding": "10px"
   }).addClass("homeDiv");
+
+  container.appendChild(currentSeasonTitle)
 
 }
 

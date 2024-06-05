@@ -14,11 +14,29 @@ async function init() {
   let currentYear = date.getFullYear();
 
 
-  for (let i = currentYear; i > 1950; i--) {
-    const season = await seasonsService.getSeason(i);
-    //console.log(season);
-    seasonsView.render(season);
-  }
-};
+  let shouldStop = false;
+
+
+
+  (async () => {
+    for (let i = currentYear; i > 1950; i--) {
+      if (shouldStop) {
+        break;
+      }
+
+      try {
+        const season = await seasonsService.getSeason(i);
+        
+        window.addEventListener("hashchange", () => {
+          shouldStop = true;
+        });
+
+        seasonsView.render(season);
+      } catch (error) {
+        console.error(`Failed to fetch season for year ${i}:`, error);
+      }
+    }
+  })();
+}
 
 export default { init };
