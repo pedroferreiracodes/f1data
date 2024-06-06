@@ -1,10 +1,16 @@
 import homeView from '../view/homeView.js';
+import seasonsService from '../service/seasonsService.js';
 
 
-function init() {
+async function init() {
 
   homeView.clear();
-  homeView.render();
+
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentSeason = await seasonsService.getSeason(currentYear);
+  homeView.render(currentSeason);
+
 };
 
 export default { init };

@@ -9,7 +9,7 @@ async function fetchSeason(seasonYear) {
     season.constructorChampName = season.ConstructorStandings[0].Constructor.name;
     //console.log(driverChamp);
     const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
-    season.champLogo = await getChampLogo(season.constructorChampName);
+    season.constructorLogo = await getConstructorLogo(season.constructorChampName);
     season.driverChampName = await getDriverChampName(season.driverChamp);
 
     return season;
@@ -31,7 +31,7 @@ async function getChamp(seasonYear) {
     }
 }
 
-async function getChampLogo(constructorChampName) {
+async function getConstructorLogo(constructorChampName) {
 
     if (constructorChampName.includes("Lotus")) {
         return "rsr/img/teams/logo_lotus.jpg";

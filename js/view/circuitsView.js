@@ -63,6 +63,7 @@ async function render(circuits) {
 
 
   function renderCircuits(circuits) {
+    console.log(circuits);
     list.html("");
     circuits.forEach(({ circuitName, url, Location, photo, circuitId }) => {
       const { locality, country } = Location;

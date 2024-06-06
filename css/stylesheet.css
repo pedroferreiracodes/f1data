@@ -66,7 +66,7 @@ a {
 
 
 .navbar:hover {
-    background-color: rgb(15,15,10);
+    background-color: rgb(15, 15, 10);
     pointer-events: all;
     opacity: 1;
 }
@@ -88,6 +88,7 @@ a {
 
 #container {
     margin: auto;
+    padding: 1vw;
     margin-top: 150px;
     display: block;
     align-items: center;
@@ -98,19 +99,45 @@ a {
     max-width: 96%;
 }
 
-.homeTitle {
-    border-style: solid;
-    border-width: 2px;
-    border-color: aqua;
-    font-style: italic;
-    font-size: 30pt;
-    font-weight: 900;
-    text-align: end;
-    padding-right: 15px;
+.homeIntro {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -5vh;
 }
 
-.homeTitle h1{
+.homeIntro h4 {
+    font-style: italic;
+    font-size: 2vw;
+
+}
+
+.homeTitle {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    height: 16vh;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.homeTitle h1 {
     font-weight: 900;
+    font-style: italic;
+    font-size: 16vh;
+}
+
+.homeSideF1 {
+    max-width: 100%;
+    -webkit-filter: drop-shadow(0px 0px 15px rgb(15, 15, 10));
+    margin-top: -15vh;
+}
+
+.homeSeason h2 {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 3vw;
 }
 
 .cardDiv {
@@ -154,4 +181,60 @@ h3 .cardDiv.seasonCard {
 
 .card-title {
     color: black;
+}
+
+.homeSeasonCard {
+    transition: background-color 0.3s ease;
+    border-radius: 0px;
+    color: rgb(243, 241, 238);
+    background-color: rgb(15, 15, 10);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    padding: 1vw;
+}
+
+.homeSeasonCard:hover {
+
+    background-color: rgb(15, 15, 0);
+    transition: background-color 0.3s ease;
+}
+
+.homeSeasonCard.cardImg {
+    padding: 0px;
+    border-radius: 0px;
+    width: 80px;
+    height: 80px;
+    margin-right: 50px;
+    background-color: rgb(15, 15, 10);
+}
+
+.homeSeasonCard.cardTextDiv {
+    transition: background-color 0.3s ease;
+    border-style: none;
+    padding: 0px;
+}
+
+.homeSeasonCard.card-title {
+    border-style: none;
+    padding: 0px;
+    margin: 0
+}
+
+.homeSeasonCard.card-text {
+    border-style: none;
+    padding: 0px;
+    margin: 0
+}
+
+.currentSeasonList > div:first-child {
+    transition: background-color 0.3s ease;
+    color: rgb(175, 109, 10);
+    background-color: rgb(15, 15, 10);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    padding: 2vw;
 }
