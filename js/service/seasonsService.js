@@ -84,15 +84,27 @@ async function getConstructorLogo(constructorChampName) {
 }
 
 async function getDriverChampName(driverObj) {
-    const driverName = driverObj.driverObj.givenName + " "+ driverObj.driverObj.familyName;
+    const driverName = driverObj.driverObj.givenName + " " + driverObj.driverObj.familyName;
     return driverName;
 }
 
 
 async function getSeason(year) {
 
-    let season = await fetchSeason(year);
+    const season = await fetchSeason(year);
     return season;
 };
 
-export default { getSeason };
+async function getConstructorChampionship(year) {
+    const season = await fetchSeason(year);
+
+    await Promise.all(
+        season.ConstructorStandings.map(async ({ Constructor }) => {
+            Constructor.constructorLogo = await getConstructorLogo(Constructor.name);
+        })
+    );
+
+    return season;
+}
+
+export default { getSeason, getConstructorChampionship };

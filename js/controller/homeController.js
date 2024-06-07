@@ -8,7 +8,7 @@ async function init() {
 
   const date = new Date();
   const currentYear = date.getFullYear();
-  const currentSeason = await seasonsService.getSeason(currentYear);
+  const currentSeason = await seasonsService.getConstructorChampionship(currentYear);
   homeView.render(currentSeason);
 
 };

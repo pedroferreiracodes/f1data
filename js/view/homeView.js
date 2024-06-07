@@ -16,36 +16,40 @@ async function render(currentSeasonObj) {
   container.append(homeTitle);
 
   const image = $("<img>").attr("src", "rsr/img/index_side.png").addClass("homeSideF1");
-
   container.append(image);
+  
   const currentSeason = $("<div>").addClass("homeSeason");
   currentSeason.html(`<h2>${currentSeasonObj.season} SEASON</h2>`);
-
-
   container.append(currentSeason);
 
+  const constructorsChampionshipTitle = $("<div>").addClass("homeConstructorsChampionshipTitle");
+  constructorsChampionshipTitle.html(`<h3>CONSTRUCTORS CHAMPIONSHIP</h3>`);
+  container.append(constructorsChampionshipTitle);
+
+
   const list = $("<div>");
+
   list.addClass("currentSeasonList");
   list.html(`<div class="list"></div>`);
   list.css({
-    "display": "inline",
-    "justify-content": "center",
-    "max-width": "100%"
+    "justify-content": "center"
   });
 
   function renderCurrentSeason(currentSeasonObj) {
-    console.log(currentSeasonObj);
+
     const currentSeasonArr = currentSeasonObj.ConstructorStandings;
+    console.log(currentSeasonArr)
     list.html("");
     currentSeasonArr.forEach(({ position, points, Constructor }) => {
-
+      console.log(Constructor.constructorLogo);
       const item = $("<div>").html(`
         <a href="#/drivers/">
           <div class="cardDiv homeSeasonCard">
-          <img class="cardImg homeSeasonCard " src="rsr/img/teams/logo_redbull.jpg" alt="Cars at racetrack">
+          <img class="cardImg homeSeasonCard " src="${Constructor.constructorLogo}" alt="${Constructor.name} Logo">
             <div class="cardTextDiv homeSeasonCard ">
+              <h2 class="card-title homeSeasonCard ">${position}</h3>
               <h3 class="card-title homeSeasonCard ">${Constructor.name}</h3>
-              <p class="card-text homeSeasonCard ">${points}</p>
+              <p class="card-text homeSeasonCard ">Current points: ${points}</p>
             </div>
           </div>
         </a>
@@ -54,12 +58,24 @@ async function render(currentSeasonObj) {
       list.append(item);
     });
   }
-
   renderCurrentSeason(currentSeasonObj);
 
+
+  list.on('wheel', function (event) {
+    if (event.originalEvent.deltaY !== 0) {
+      event.preventDefault();
+      $(this).scrollLeft($(this).scrollLeft() + event.originalEvent.deltaY * 1);
+    }
+  });
+
+
+
+  list.scrollLeft(0);
   container.append(list);
 
 
 }
+
+
 
 export default { clear, render };
