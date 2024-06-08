@@ -1,3 +1,5 @@
+import driverService from '../service/driverService.js';
+
 async function fetchSeason(seasonYear) {
 
     const response = await fetch(`https://ergast.com/api/f1/${seasonYear}/constructorStandings.json`)
@@ -37,7 +39,20 @@ async function getConstructorLogo(constructorChampName) {
         return "rsr/img/teams/logo_lotus.jpg";
     };
 
+    if (constructorChampName.includes("Alpine")) {
+        return "rsr/img/teams/logo_alpine.jpg";
+    };
+    if (constructorChampName.includes("Haas")) {
+        return "rsr/img/teams/logo_haas.jpg";
+    };
+    if (constructorChampName.includes("RB")) {
+        return "rsr/img/teams/logo_rbf1team.jpg";
+    };
     switch (constructorChampName) {
+
+        case "Aston Martin":
+            return "rsr/img/teams/logo_astonmartin.jpg";
+
         case "Red Bull":
             return "rsr/img/teams/logo_redbull.jpg";
 
@@ -60,7 +75,10 @@ async function getConstructorLogo(constructorChampName) {
             return "rsr/img/teams/logo_williams.jpg";
 
         case "Benetton":
-            return "rsr/img/teams/logo_benetton.jpg"
+            return "rsr/img/teams/logo_benetton.jpg";
+
+        case "Sauber":
+            return "rsr/img/teams/logo_sauber.jpg";
 
         case "Tyrrell":
             return "rsr/img/teams/logo_tyrrell.jpg";
@@ -107,4 +125,25 @@ async function getConstructorChampionship(year) {
     return season;
 }
 
-export default { getSeason, getConstructorChampionship };
+async function getDriverChampionship(year) {
+
+    try {
+        const fetchedChampData = await fetch(`http://ergast.com/api/f1/${year}/driverStandings.json`);
+        const fetchedChamp = await fetchedChampData.json();
+
+        const driverChampionship = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+
+        await Promise.all(
+            driverChampionship.map(async ({ Driver }) => {
+                const croppedWikiUrl = Driver.url.split(/\/|#/).pop();
+                Driver.driverPhoto = await driverService.getDriverPhoto(croppedWikiUrl);
+            }))
+        console.log(driverChampionship);
+        return driverChampionship;
+
+    } catch (error) {
+        return null
+    };
+}
+
+export default { getSeason, getConstructorChampionship, getDriverChampionship };

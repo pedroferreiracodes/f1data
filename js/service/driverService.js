@@ -50,4 +50,4 @@ async function getDrivers() {
     return drivers;
 }
 
-export default { getDriver, getDrivers };
+export default { getDriver, getDrivers, getDriverPhoto };
