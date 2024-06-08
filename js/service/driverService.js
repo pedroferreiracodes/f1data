@@ -12,7 +12,6 @@ async function fetchDrivers() {
         driver.photo = await getDriverPhoto(croppedWikiUrl);
         if (!driver.photo) {
             const remadeUrl = driver.url;
-            console.log(remadeUrl);
             if (!driver.photo) {
                 driver.photo = "/rsr/img/scottChegg.jpg";
             }

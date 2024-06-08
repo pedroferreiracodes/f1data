@@ -1,64 +1,122 @@
 function clear() {
   const container = $('#container');
-  container.html('')
+  container.html("");
 }
 
 
 async function render(drivers) {
 
-  const container = document.querySelector('#container');
-  container.innerHTML = '';
+  const container = $('#container');
 
-  const formDiv = document.createElement('div');
-  formDiv.style = `display: flex; justify-content: center; position: sticky; top:35px; padding: 10px; z-index: 10; background-color: grey; `;
-  const filterForm = document.createElement('form');
-  filterForm.style = `background-color: white; padding-top: 0.2%; padding-bottom: 0.2%; padding-left: 8%; padding-right: 8%; border-radius: 5px`;
+  const formDiv = $("<div>").addClass("formDiv");
+  const filterForm = $('<form>').addClass("filterForm");
+  const filterByLabel = $('<label>').attr({
+    'for': 'countryInput',
+    'id': 'filterByLabel'
+  }).text('FILTER BY');
 
-  const countryInput = document.createElement('input');
-  countryInput.type = 'text';
-  countryInput.placeholder = 'Filter drivers by nationality';
-
-  countryInput.addEventListener('input', () => {
-    const searchTerm = countryInput.value.trim().toLowerCase();
-    const filteredDrivers = drivers.filter(({ nationality }) =>
-      `${nationality}`.toLowerCase().includes(searchTerm)
-    );
-    renderDrivers(filteredDrivers);
+  const countryInput = $('<input>').attr({
+    type: 'text',
+    placeholder: 'NATIONALITY'
   });
 
-  filterForm.appendChild(countryInput);
-  formDiv.appendChild(filterForm);
-  container.appendChild(formDiv);
 
-  const list = document.createElement('div');
-  list.innerHTML = `<div class="list"></div>`
-  list.style = `display: grid; max-width:95%; justify-content: center; grid-template-columns: repeat(auto-fill, minmax(300px, 500px)); gap:20px; padding: 10px`;
+  const nameInput = $('<input>').attr({
+    type: 'text',
+    placeholder: 'NAME'
+  });
+
+  filterForm.append(filterByLabel)
+  filterForm.append(countryInput);
+  filterForm.append(nameInput)
+  formDiv.append(filterForm);
+
+  const orderByForm = $('<form>').addClass("orderByForm");
+  const orderByLabel = $('<label>').attr({
+    'for': 'orderByInput',
+    'id': 'orderByLabel'
+  }).text('ORDER BY');
+
+  const orderByNameOption = $('<div>').addClass("orderByOption");
+  const orderByNameOptionbtn = $('<div>').addClass("btn");
+  const orderByNameLabel = $('<label>').attr('for', 'orderByName').text('NAME');
+  const orderByNameInput = $('<input>').attr({
+
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByName',
+    value: 'name',
+    class: 'input'
+  });
+
+  const orderByNationalityOption = $('<div>').addClass("orderByOption");
+  const orderByNationalityOptionbtn = $('<div>').addClass("btn");
+  const orderByNationalityLabel = $('<label>').attr('for', 'orderByNationality').text('NATIONALITY');
+  const orderByNationalityInput = $('<input>').attr({
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByNationality',
+    value: 'nationality',
+    class: 'input'
+  });
+
+  orderByForm.append(orderByLabel);
+
+  orderByNameOptionbtn.append(orderByNameLabel)
+  orderByNameOption.append(orderByNameInput);
+  orderByNameOption.append(orderByNameOptionbtn);
+  orderByForm.append(orderByNameOption);
+
+  orderByNationalityOptionbtn.append(orderByNationalityLabel);
+  orderByNationalityOption.append(orderByNationalityInput);
+  orderByNationalityOption.append(orderByNationalityOptionbtn);
+  orderByForm.append(orderByNationalityOption)
 
 
+  formDiv.append(orderByForm);
+  container.append(formDiv);
+
+
+
+  const list = $('<div>').addClass("list driverList");
 
   async function renderDrivers(drivers) {
-    list.innerHTML = '';
+    list.html("");
     await drivers.forEach(({ givenName, familyName, nationality, photo }) => {
-      const item = document.createElement('div');
-      item.innerHTML = ` <a href="#/drivers/#">
-                          <div class="cardDiv">
+      const driverItem = $("<div>").html(`<a href="#/drivers/#">
+                          <div class="cardDiv driverCardDiv">
                            <img class="cardImg" src="${photo}" alt="Awesome Driver">
                           <div class="cardTextDiv">
                            <h3 class="card-title">${givenName} ${familyName}</h3>
                            <p class="card-text">${nationality}</p>
                            </div>
                          </div>
-                         </a>`;
+                         </a>`);
 
-      list.appendChild(item);
+      list.append(driverItem);
+      container.append(list);
     });
   }
 
-  renderDrivers(drivers);
 
-  container.appendChild(list);
+
+  let filteredDrivers = drivers;
+
+  const applyFilters = () => {
+    const nationalitySearchTerm = countryInput.val().trim().toLowerCase();
+    const nameSearchTerm = nameInput.val().trim().toLowerCase();
+
+    filteredDrivers = drivers.filter(({ nationality, givenName, familyName }) =>
+      `${nationality}`.toLowerCase().includes(nationalitySearchTerm) &&
+      `${givenName} ${familyName}`.toLowerCase().includes(nameSearchTerm)
+    );
+    renderDrivers(filteredDrivers);
+  };
+
+  countryInput.on('input', applyFilters);
+  nameInput.on('input', applyFilters);
+  renderDrivers(filteredDrivers);
 }
-
 
 
 export default { clear, render };

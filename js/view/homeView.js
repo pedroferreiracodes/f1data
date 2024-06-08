@@ -33,10 +33,6 @@ async function render(constructorChampionshipObj, driverChampionship) {
   const driverList = $("<div>");
   driverList.addClass("currentSeasonList");
   driverList.html(`<div class="list"></div>`);
-  driverList.css({
-    "justify-content": "center"
-  });
-
 
   function renderDriversChampionship(driverChampionship) {
 
@@ -85,11 +81,7 @@ async function render(constructorChampionshipObj, driverChampionship) {
   const constructorList = $("<div>");
   constructorList.addClass("currentSeasonList");
   constructorList.html(`<div class="list"></div>`);
-  constructorList.css({
-    "justify-content": "center"
-  });
-
-
+ 
   function renderConstructorsChampionship(constructorChampionshipObj) {
 
     const currentSeasonArr = constructorChampionshipObj.ConstructorStandings;

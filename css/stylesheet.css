@@ -17,7 +17,7 @@ body {
     display: flex;
     justify-content: space-evenly;
     padding-bottom: 10px;
-    z-index: 10;
+    z-index: 15;
 }
 
 .box {
@@ -29,7 +29,7 @@ body {
     cursor: pointer;
     pointer-events: all;
     border-color: #FDFDFD;
-    border-width: 1px;
+    border-width: 2px;
     border-style: solid;
 }
 
@@ -89,7 +89,7 @@ a {
 #container {
     margin: auto;
     padding: 1vw;
-    margin-top: 150px;
+    margin-top: 10vh;
     display: block;
     align-items: center;
     justify-content: center;
@@ -159,7 +159,7 @@ a {
 }
 
 .homeChampTitle span {
-    border-width: 0 ;
+    border-width: 0;
     margin: 0;
     flex-grow: 1;
     height: 2vw;
@@ -167,11 +167,11 @@ a {
     background: linear-gradient(to right, rgba(243, 241, 238, 0) 0%, rgba(243, 241, 238, 1) 100%);
 }
 
-.homeDriverChampTitle span{
-     background: linear-gradient(to right, rgba(243, 241, 238, 1) 0%, rgba(243, 241, 238, 0) 100%);
+.homeDriverChampTitle span {
+    background: linear-gradient(to right, rgba(243, 241, 238, 1) 0%, rgba(243, 241, 238, 0) 100%);
 }
 
-.homeConstructorChampTitle{}
+.homeConstructorChampTitle {}
 
 .cardDiv {
     transition: background-color 0.3s ease;
@@ -225,9 +225,6 @@ h1 {
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    margin: 0 auto 0 auto;
-    width: 100%;
-    height: 50vh;
 }
 
 .currentSeasonList::-webkit-scrollbar {
@@ -287,3 +284,158 @@ h1 {
     margin: 0;
     font-size: 18px;
 }
+
+
+.formDiv {
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0px;
+    padding: 0px;
+    z-index: 10;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    background-color: rgb(15, 15, 10);
+    height: 45px;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+.filterForm {
+    align-items: center;
+    display: flex;
+    height: 45px;
+}
+
+.filterForm input,
+.filterForm label {
+    text-decoration: none;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-right-style: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(15, 15, 10);
+    height: 30px;
+    text-align: left;
+    font-size: 20px;
+}
+
+.filterForm label {
+    text-decoration: none;
+    border-style: none;
+    color: rgb(243, 241, 238);
+    background-color: rgb(15, 15, 10);
+    height: 30px;
+    text-align: left;
+    font-size: 25px;
+    font-weight: 700;
+    align-items: center;
+}
+
+#filterByLabel {
+    margin-right: 2vw;
+}
+
+
+
+.orderByForm {
+    --font-color-dark: rgb(15, 15, 10);
+    --font-color-light: rgb(243, 241, 238);
+    --bg-color: rgb(109, 107, 105);
+    --main-color: rgb(15, 15, 10);
+    --secondary-color: rgb(141, 138, 133);
+    position: relative;
+    width: 20vw;
+    height: 36px;
+    background-color: var(--bg-color);
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid var(--main-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.orderByOption {
+    margin-right: 5px;
+    height: 28px;
+    position: relative;
+    top: 2px;
+    transition: 0.25s cubic-bezier(0, 0, 0, 1);
+    padding: 5px;
+}
+
+.orderByOption:last-child {
+    margin-right: 4px;
+}
+
+.orderByOption:hover {
+    background-color: var(--secondary-color);
+}
+
+.orderByOption:hover label {
+    color: var(--font-color-light);
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    appearance: none;
+    cursor: pointer;
+}
+
+.btn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label {
+    color: var(--font-color-dark);
+}
+
+.input:checked+.btn {
+    background-color: var(--main-color);
+    transition: 0.2s cubic-bezier(0, 0, 0, 1);
+}
+
+.input:checked+.btn label {
+    color: var(--font-color-light);
+    transition: 0.25s cubic-bezier(0, 0, 0, 1);
+}
+
+#orderByLabel {
+    color: rgb(243, 241, 238);
+    margin-right: 2vw;
+    text-decoration: none;
+    border-style: none;
+    color: rgb(243, 241, 238);
+    height: 30px;
+    font-size: 25px;
+    font-weight: 700;
+    align-items: center;
+
+}
+
+
+
+
+.driverList {
+    display: grid;
+    max-width: 95%;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 500px));
+    gap: 20px;
+    padding: 10px;
+}
+
+
+.driverCardDiv {}
