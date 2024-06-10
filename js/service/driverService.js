@@ -28,7 +28,6 @@ async function getDriverPhoto(croppedWikiUrl) {
         const photovalues = photodata.query.pages;
         const aaaa = Object.values(photovalues)[0];
         const photoUrl = aaaa.thumbnail.source;
-        //console.log();
 
         return photoUrl;
 
@@ -37,16 +36,36 @@ async function getDriverPhoto(croppedWikiUrl) {
     }
 }
 
+async function getDriverRaceWins(driver) {
+    try {
+        const fetchedDriverWins = await fetch(`http://ergast.com/api/f1/drivers/${driver.driverId}/driverStandings.json`);
+        const driverData = await fetchedDriverWins.json();
+        const winsArr = driverData.MRData.StandingsTable.StandingsLists;
+
+        let winsSum = 0;
+        winsArr.forEach(element => {
+            winsSum = winsSum + parseInt(element.DriverStandings[0].wins);
+            winsSum += parseInt(element.DriverStandings[0].wins);
+        });
+        driver.raceWins = winsSum;
+        console.log(driver)
+        return driver;
+    } catch (error) {
+        return null
+    }
+}
+
 
 
 async function getDriver(index) {
-    let drivers = await fetchDrivers();
+    const drivers = await fetchDrivers();
     return drivers[index]
 };
 
 async function getDrivers() {
-    let drivers = await fetchDrivers();
+    const drivers = await fetchDrivers();
     return drivers;
 }
 
-export default { getDriver, getDrivers, getDriverPhoto };
+
+export default { getDriver, getDrivers, getDriverRaceWins, getDriverPhoto };

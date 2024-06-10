@@ -33,7 +33,7 @@ async function render(drivers) {
 
   const orderByForm = $('<form>').addClass("orderByForm");
   const orderByLabel = $('<label>').attr({
-    'for': 'orderByInput',
+    'for': 'orderByForm',
     'id': 'orderByLabel'
   }).text('ORDER BY');
 
@@ -82,17 +82,17 @@ async function render(drivers) {
 
   async function renderDrivers(drivers) {
     list.html("");
-    await drivers.forEach(({ givenName, familyName, nationality, photo }) => {
+    await drivers.forEach(({ givenName, familyName, nationality, photo, raceWins }) => {
       const driverItem = $("<div>").html(`<a href="#/drivers/#">
                           <div class="cardDiv driverCardDiv">
                            <img class="cardImg" src="${photo}" alt="Awesome Driver">
                           <div class="cardTextDiv">
                            <h3 class="card-title">${givenName} ${familyName}</h3>
                            <p class="card-text">${nationality}</p>
+                           <p class="card-text">Loading Race Wins</p>
                            </div>
                          </div>
                          </a>`);
-
       list.append(driverItem);
       container.append(list);
     });
@@ -105,19 +105,59 @@ async function render(drivers) {
   const applyFilters = () => {
     const nationalitySearchTerm = countryInput.val().trim().toLowerCase();
     const nameSearchTerm = nameInput.val().trim().toLowerCase();
+    const orderByInput = $('input[name="orderBy"]:checked').val();
 
     filteredDrivers = drivers.filter(({ nationality, givenName, familyName }) =>
       `${nationality}`.toLowerCase().includes(nationalitySearchTerm) &&
       `${givenName} ${familyName}`.toLowerCase().includes(nameSearchTerm)
     );
+
+    orderDrivers(filteredDrivers, orderByInput);
+
+
+    console.log(filteredDrivers);
+    console.log(orderByInput);
     renderDrivers(filteredDrivers);
   };
 
   countryInput.on('input', applyFilters);
   nameInput.on('input', applyFilters);
+  orderByForm.on('input', applyFilters)
+
   renderDrivers(filteredDrivers);
 }
 
+function orderDrivers(filteredDrivers, orderByArg) {
+
+  if (orderByArg === "name") {
+
+    filteredDrivers.sort((a, b) => {
+      const nameA = a.familyName.toLowerCase();
+      const nameB = b.familyName.toLowerCase();
+      if (nameA < nameB) {
+        return -1;
+      } if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    })
+  }
+
+  if (orderByArg === "nationality") {
+
+    filteredDrivers.sort((a, b) => {
+      const nationalityA = a.nationality.toLowerCase();
+      const nationalityB = b.nationality.toLowerCase();
+      if (nationalityA < nationalityB) {
+        return -1;
+      } if (nationalityA > nationalityB) {
+        return 1;
+      }
+      return 0;
+    })
+  }
+
+}
 
 export default { clear, render };
 
