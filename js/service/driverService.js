@@ -48,7 +48,6 @@ async function getDriverRaceWins(driver) {
             winsSum += parseInt(element.DriverStandings[0].wins);
         });
         driver.raceWins = winsSum;
-        console.log(driver)
         return driver;
     } catch (error) {
         return null

@@ -63,26 +63,22 @@ async function render(drivers) {
   orderByForm.append(orderByLabel);
 
   orderByNameOptionbtn.append(orderByNameLabel)
-  orderByNameOption.append(orderByNameInput);
-  orderByNameOption.append(orderByNameOptionbtn);
-  orderByForm.append(orderByNameOption);
-
+  orderByNameOption.append(orderByNameInput, orderByNameOptionbtn);
   orderByNationalityOptionbtn.append(orderByNationalityLabel);
-  orderByNationalityOption.append(orderByNationalityInput);
-  orderByNationalityOption.append(orderByNationalityOptionbtn);
-  orderByForm.append(orderByNationalityOption)
+  orderByNationalityOption.append(orderByNationalityInput, orderByNationalityOptionbtn);
 
-
+  orderByForm.append(orderByNameOption, orderByNationalityOption);
   formDiv.append(orderByForm);
   container.append(formDiv);
 
 
 
   const list = $('<div>').addClass("list driverList");
+      container.append(list);
 
-  async function renderDrivers(drivers) {
+  function renderDrivers(drivers) {
     list.html("");
-    await drivers.forEach(({ givenName, familyName, nationality, photo, raceWins }) => {
+    drivers.forEach(({ givenName, familyName, nationality, photo, raceWins }) => {
       const driverItem = $("<div>").html(`<a href="#/drivers/#">
                           <div class="cardDiv driverCardDiv">
                            <img class="cardImg" src="${photo}" alt="Awesome Driver">
@@ -94,38 +90,37 @@ async function render(drivers) {
                          </div>
                          </a>`);
       list.append(driverItem);
-      container.append(list);
     });
   }
 
 
 
+
   let filteredDrivers = drivers;
 
-  const applyFilters = () => {
+  //renderDrivers(filteredDrivers);
+
+  function applyFilters() {
     const nationalitySearchTerm = countryInput.val().trim().toLowerCase();
     const nameSearchTerm = nameInput.val().trim().toLowerCase();
     const orderByInput = $('input[name="orderBy"]:checked').val();
 
-    filteredDrivers = drivers.filter(({ nationality, givenName, familyName }) =>
-      `${nationality}`.toLowerCase().includes(nationalitySearchTerm) &&
-      `${givenName} ${familyName}`.toLowerCase().includes(nameSearchTerm)
+    let filteredDrivers = drivers.filter(({ nationality, givenName, familyName }) =>
+      nationality.toLowerCase().includes(nationalitySearchTerm) &&
+      (`${givenName} ${familyName}`).toLowerCase().includes(nameSearchTerm)
     );
 
     orderDrivers(filteredDrivers, orderByInput);
-
-
-    console.log(filteredDrivers);
-    console.log(orderByInput);
     renderDrivers(filteredDrivers);
-  };
+  }
 
+  applyFilters();
   countryInput.on('input', applyFilters);
   nameInput.on('input', applyFilters);
   orderByForm.on('input', applyFilters)
 
-  renderDrivers(filteredDrivers);
 }
+
 
 function orderDrivers(filteredDrivers, orderByArg) {
 
@@ -134,12 +129,7 @@ function orderDrivers(filteredDrivers, orderByArg) {
     filteredDrivers.sort((a, b) => {
       const nameA = a.familyName.toLowerCase();
       const nameB = b.familyName.toLowerCase();
-      if (nameA < nameB) {
-        return -1;
-      } if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
+      return nameA.localeCompare(nameB);
     })
   }
 
@@ -148,12 +138,7 @@ function orderDrivers(filteredDrivers, orderByArg) {
     filteredDrivers.sort((a, b) => {
       const nationalityA = a.nationality.toLowerCase();
       const nationalityB = b.nationality.toLowerCase();
-      if (nationalityA < nationalityB) {
-        return -1;
-      } if (nationalityA > nationalityB) {
-        return 1;
-      }
-      return 0;
+      return nationalityA.localeCompare(nationalityB)
     })
   }
 

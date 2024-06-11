@@ -38,7 +38,6 @@ async function render(constructorChampionshipObj, driverChampionship) {
 
     driverList.html("");
     driverChampionship.forEach(({ position, points, Driver, Constructors }) => {
-      console.log(driverChampionship);
       const driverItem = $("<div>").html(`
         <a href="#/drivers/">
           <div class="cardDiv homeSeasonCard">
@@ -56,6 +55,7 @@ async function render(constructorChampionshipObj, driverChampionship) {
       driverList.append(driverItem);
     });
   }
+  
   renderDriversChampionship(driverChampionship);
 
 
@@ -65,8 +65,6 @@ async function render(constructorChampionshipObj, driverChampionship) {
       $(this).scrollLeft($(this).scrollLeft() + event.originalEvent.deltaY * 1);
     }
   });
-
-
 
   driverList.scrollLeft(0);
   container.append(driverList);
@@ -103,8 +101,8 @@ async function render(constructorChampionshipObj, driverChampionship) {
       constructorList.append(constructorItem);
     });
   }
-  renderConstructorsChampionship(constructorChampionshipObj);
 
+  renderConstructorsChampionship(constructorChampionshipObj);
 
   constructorList.on('wheel', function (event) {
     if (event.originalEvent.deltaY !== 0) {
@@ -114,14 +112,9 @@ async function render(constructorChampionshipObj, driverChampionship) {
   });
 
 
-
   constructorList.scrollLeft(0);
   container.append(constructorList);
 
-
-
 }
-
-
 
 export default { clear, render };
