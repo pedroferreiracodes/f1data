@@ -2,7 +2,7 @@
 
 async function fetchDrivers() {
 
-    const response = await fetch("http://ergast.com/api/f1/drivers.json?limit=900")
+    const response = await fetch("https://ergast.com/api/f1/drivers.json?limit=900")
     const data = await response.json();
 
     const driversArr = data.MRData.DriverTable.Drivers;
@@ -38,7 +38,7 @@ async function getDriverPhoto(croppedWikiUrl) {
 
 async function getDriverRaceWins(driver) {
     try {
-        const fetchedDriverWins = await fetch(`http://ergast.com/api/f1/drivers/${driver.driverId}/driverStandings.json`);
+        const fetchedDriverWins = await fetch(`https://ergast.com/api/f1/drivers/${driver.driverId}/driverStandings.json`);
         const driverData = await fetchedDriverWins.json();
         const winsArr = driverData.MRData.StandingsTable.StandingsLists;
 

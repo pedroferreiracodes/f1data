@@ -20,7 +20,7 @@ async function fetchSeason(seasonYear) {
 async function getChamp(seasonYear) {
 
     try {
-        const fetchedChampData = await fetch(`http://ergast.com/api/f1/${seasonYear}/driverStandings.json`);
+        const fetchedChampData = await fetch(`https://ergast.com/api/f1/${seasonYear}/driverStandings.json`);
         const fetchedChamp = await fetchedChampData.json();
         const champObj = {};
         champObj.driverObj = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings[0].Driver;
@@ -128,7 +128,7 @@ async function getConstructorChampionship(year) {
 async function getDriverChampionship(year) {
 
     try {
-        const fetchedChampData = await fetch(`http://ergast.com/api/f1/${year}/driverStandings.json`);
+        const fetchedChampData = await fetch(`https://ergast.com/api/f1/${year}/driverStandings.json`);
         const fetchedChamp = await fetchedChampData.json();
 
         const driverChampionship = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings;
