@@ -78,17 +78,19 @@ async function render(drivers) {
 
   function renderDrivers(drivers) {
     list.html("");
-    drivers.forEach(({ givenName, familyName, nationality, photo, raceWins }) => {
-      const driverItem = $("<div>").html(`<a href="#/drivers/#">
-                          <div class="cardDiv driverCardDiv">
-                           <img class="cardImg" src="${photo}" alt="Awesome Driver">
-                          <div class="cardTextDiv">
-                           <h3 class="card-title">${givenName} ${familyName}</h3>
-                           <p class="card-text">${nationality}</p>
-                           <p class="card-text">Loading Race Wins</p>
-                           </div>
-                         </div>
-                         </a>`);
+    drivers.forEach(({ givenName, familyName, nationality, photo, raceWins, driverId }) => {
+      const driverItem = $("<div>").html(`
+                          <a href="#/drivers/${driverId}">
+                            <div class="cardDiv driverCard">
+                              <div class="driverImgDiv driverCard">
+                                <img class="driverCardImg driverCard" src="${photo}" alt="${givenName} ${familyName} photo">
+                              </div>
+                              <div class="cardTextDiv driverCard">
+                                <h3 class="card-title driverCard">${givenName} ${familyName}</h3>
+                                <p class="card-text driverCard">${nationality}</p>
+                              </div>
+                            </div>
+                          </a>`);
       list.append(driverItem);
     });
   }
@@ -97,8 +99,7 @@ async function render(drivers) {
 
 
   let filteredDrivers = drivers;
-
-  //renderDrivers(filteredDrivers);
+console.log(drivers);
 
   function applyFilters() {
     const nationalitySearchTerm = countryInput.val().trim().toLowerCase();

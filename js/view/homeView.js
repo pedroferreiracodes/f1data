@@ -41,7 +41,7 @@ async function render(constructorChampionshipObj, driverChampionship) {
       const driverItem = $("<div>").html(`
         <a href="#/drivers/">
           <div class="cardDiv homeSeasonCard">
-          <img class="cardImg homeSeasonCard " src="${Driver.driverPhoto}" alt="${Driver.driverId} photo">
+            <img class="cardImg homeSeasonCard " src="${Driver.driverPhoto}" alt="${Driver.driverId} photo">
             <div class="cardTextDiv homeSeasonCard ">
               <h2 class="card-title homeSeasonCard ">${position}</h3>
               <h3 class="card-title homeSeasonCard ">${Driver.givenName} ${Driver.familyName}</h3>
