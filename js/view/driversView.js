@@ -78,7 +78,7 @@ async function render(drivers) {
 
   function renderDrivers(drivers) {
     list.html("");
-    drivers.forEach(({ givenName, familyName, nationality, photo, raceWins, driverId }) => {
+    drivers.forEach(({ givenName, familyName, nationality, photo, driverId }) => {
       const driverItem = $("<div>").html(`
                           <a href="#/drivers/${driverId}">
                             <div class="cardDiv driverCard">

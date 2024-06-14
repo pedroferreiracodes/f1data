@@ -6,40 +6,82 @@ function clear() {
   container.append(seasonsTitle);
 }
 
-async function render(season) {
+async function render(seasons) {
 
   const container = $("#container");
 
+  const formDiv = $("<div>").addClass("formDiv");
+  const formGradientSpan = $('<span/>').addClass("formDiv");
+
+  const orderByForm = $('<form>').addClass("orderByForm");
+  const orderByLabel = $('<label>').attr({
+    'for': 'orderByForm',
+    'id': 'orderByLabel'
+  }).text('ORDER BY');
+
+  const orderByRecentOption = $('<div>').addClass("orderByOption");
+  const orderByRecentOptionbtn = $('<div>').addClass("btn");
+  const orderByRecentLabel = $('<label>').attr('for', 'orderByRecent').text('RECENT');
+  const orderByRecentInput = $('<input>').attr({
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByRecent',
+    value: 'recent',
+    class: 'input'
+  });
+
+  const orderByFormerOption = $('<div>').addClass("orderByOption");
+  const orderByFormerOptionbtn = $('<div>').addClass("btn");
+  const orderByFormerLabel = $('<label>').attr('for', 'orderByFormer').text('FORMER');
+  const orderByFormerInput = $('<input>').attr({
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByFormer',
+    value: 'former',
+    class: 'input'
+  });
+
   
+  orderByForm.append(orderByLabel);
+
+  orderByRecentOptionbtn.append(orderByRecentLabel)
+  orderByRecentOption.append(orderByRecentInput, orderByRecentOptionbtn);
+  orderByFormerOptionbtn.append(orderByFormerLabel);
+  orderByFormerOption.append(orderByFormerInput, orderByFormerOptionbtn);
+
+  orderByForm.append(orderByRecentOption, orderByFormerOption);
+  formDiv.append(formGradientSpan);
+  formDiv.append(orderByForm);
+  container.append(formDiv);
+
 
   const list = $("<div>");
-  list.css({
-    "display": "inline",
-    "flex-wrap": "wrap",
-    "max-width": "100%",
-    "gap": "10px",
-    "padding": "10px"
-  }).addClass("list");
+  list.addClass("seasonList");
 
-  function renderSeasons(season) {
+  renderSeasons(seasons);
 
-    const item = $("<div>").addClass("item");
-
-    item.html(`
-    <a href="#/season/${season.season}">
+  function renderSeasons(seasons) {
+    list.html("");
+    seasons.forEach(({ season, ConstructorStandings, constructorLogo }) => {
+      const seasonItem = $("<div>");
+      seasonItem.html(`
+    <a href="#/season/${season}">
         <div class="cardDiv seasonCard">
-            <div><img class="cardImg" src="${season.constructorLogo}" alt="${season.constructorChampName} logo"></div>
-            <div><h3 class="card-title">${season.season}</h3>
-            <h5 class="card-title">Drivers Champion: ${season.driverChampName}</h5>
-            <h5 class="card-title">Constructors Champion: ${season.constructorChampName}</h5></div>
+          <div class="seasonImgDiv seasonCard">
+            <img class="seasonCardImg seasonCard" src="${constructorLogo}" alt="${ConstructorStandings[0].Constructor.name} logo">
+          </div>
+          <div class="cardTextDiv seasonCard">
+            <h3 class="cardTitle seasonCard">${season}</h3>
+            <h5 class="cardText seasonCard">Constructors Champion: ${ConstructorStandings[0].Constructor.name}</h5>
+          </div>
         </div>
     </a>
 `);
 
-    list.append(item);
-  }
+      list.append(seasonItem);
+    })
 
-  renderSeasons(season);
+  }
 
   container.append(list);
 }

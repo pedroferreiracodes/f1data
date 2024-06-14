@@ -13,7 +13,7 @@ async function fetchDrivers() {
         if (!driver.photo) {
             const remadeUrl = driver.url;
             if (!driver.photo) {
-                driver.photo = "/rsr/img/scottChegg.jpg";
+                driver.photo = "rsr/img/scottChegg.jpg";
             }
         }
     }));

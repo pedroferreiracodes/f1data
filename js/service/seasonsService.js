@@ -1,5 +1,29 @@
 import driverService from '../service/driverService.js';
 
+
+
+
+async function getSeasons() {
+    const response = await fetch(`https://ergast.com/api/f1/constructorStandings/1.json?limit=90`);
+    const data = await response.json();
+    const seasons = data.MRData.StandingsTable.StandingsLists;
+
+    for (const element of seasons) {
+        element.constructorLogo = await getConstructorLogo(element.ConstructorStandings[0].Constructor.name)
+    }
+
+console.log(seasons);
+return seasons
+}
+
+async function getSeason(year) {
+
+    const season = await fetchSeason(year);
+    return season;
+};
+
+
+
 async function fetchSeason(seasonYear) {
 
     const response = await fetch(`https://ergast.com/api/f1/${seasonYear}/constructorStandings.json`)
@@ -9,7 +33,6 @@ async function fetchSeason(seasonYear) {
     season.driverChamp = await getChamp(seasonYear);
 
     season.constructorChampName = season.ConstructorStandings[0].Constructor.name;
-    //console.log(driverChamp);
     const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
     season.constructorLogo = await getConstructorLogo(season.constructorChampName);
     season.driverChampName = await getDriverChampName(season.driverChamp);
@@ -107,11 +130,6 @@ async function getDriverChampName(driverObj) {
 }
 
 
-async function getSeason(year) {
-
-    const season = await fetchSeason(year);
-    return season;
-};
 
 async function getConstructorChampionship(year) {
     const season = await fetchSeason(year);
@@ -146,4 +164,4 @@ async function getDriverChampionship(year) {
     };
 }
 
-export default { getSeason, getConstructorChampionship, getDriverChampionship };
+export default { getSeason, getSeasons, getConstructorChampionship, getDriverChampionship };

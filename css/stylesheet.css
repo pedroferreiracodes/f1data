@@ -171,6 +171,15 @@ a {
     background: linear-gradient(to right, rgba(243, 241, 238, 1) 0%, rgba(243, 241, 238, 0) 100%);
 }
 
+.formDiv span {
+    border-width: 0;
+    margin: 0;
+    flex-grow: 1;
+    height: 2vw;
+    align-self: center;
+    background: linear-gradient(to right, rgba(243, 241, 238, 1) 0%, rgba(243, 241, 238, 0) 100%);
+}
+
 .cardDiv {
     transition: background-color 0.3s ease;
     display: flex;
@@ -178,10 +187,6 @@ a {
     background-color: rgb(243, 241, 238);
     color: rgb(0, 0, 0);
     padding: 2%;
-}
-
-.cardDiv.seasonCard {
-    max-width: 90%;
 }
 
 .cardDiv.cardImg {
@@ -423,6 +428,85 @@ label {
 
 }
 
+.seasonList {
+    display: inline;
+    flex-wrap: wrap;
+    max-width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(10vw, 30vw));
+    gap: 10px;
+    padding: 10px;
+}
+
+.seasonCard {
+    border-radius: 0px;
+    color: rgb(243, 241, 238);
+    background-color: rgb(15, 15, 10);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    padding: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.seasonImgDiv {
+    display: flex;
+    border-style: none;
+    margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0px;
+    justify-content: center;
+    align-items: baseline;
+    overflow: hidden;
+    object-position: top;
+}
+
+.seasonCardImg {
+    border-style: none;
+    padding: 0px;
+    border-radius: 0px;
+    background-color: white;
+    margin: 0px;
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
+    object-position: top;
+    transition: filter 0.3s ease;
+}
+
+.seasonCard.cardTextDiv {
+    display: flex;
+    flex-direction: column;
+    border-style: none;
+    padding: 0px;
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.seasonCard.cardTitle {
+    border-style: none;
+    padding: 0px;
+    margin: 0;
+    color: rgb(243, 241, 238);
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.seasonCard.cardText {
+    border-style: none;
+    padding: 0px;
+    margin: 0;
+    font-size: 18px;
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
 .driverList {
     display: grid;
     max-width: 100%;
@@ -431,7 +515,6 @@ label {
     gap: 25px;
     padding: 0px;
 }
-
 
 .driverCard {
     border-radius: 0px;

@@ -23,7 +23,7 @@ async function render(constructorChampionshipObj, driverChampionship) {
   container.append(currentSeason);
 
   const driversChampionshipTitle = $("<div>").addClass("homeChampTitle homeDriverChampTitle");
-  const dChampGradientSpan = $('<span/>').addClass("homeChampTitle");;
+  const dChampGradientSpan = $('<span/>').addClass("homeChampTitle");
   const driversChampionshipTitleText = $(`<h3>DRIVERS CHAMPIONSHIP</h3>`);
   driversChampionshipTitle.append(dChampGradientSpan);
   driversChampionshipTitle.append(driversChampionshipTitleText)
