@@ -131,7 +131,7 @@ a {
 .homeSideF1 {
     max-width: 100%;
     -webkit-filter: drop-shadow(0px 0px 15px rgb(15, 15, 10));
-    margin-top: -15vh;
+    margin-top: -5vw;
 }
 
 .homeSeason h2 {
@@ -179,6 +179,54 @@ a {
     align-self: center;
     background: linear-gradient(to right, rgba(243, 241, 238, 1) 0%, rgba(243, 241, 238, 0) 100%);
 }
+
+.driversIntro {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -5vh;
+}
+
+.driversIntro h4 {
+    font-style: italic;
+    font-size: 2vw;
+
+}
+
+.driversTitle {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    height: 16vh;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.driversTitle h1 {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 16vh;
+}
+
+.driversTitleImage {
+    max-width: 100%;
+    -webkit-filter: drop-shadow(0px 0px 15px rgb(15, 15, 10));
+    margin-top: -15vw;
+}
+
+#driverbgImage {
+  object-fit: contain;
+  width: 100%;
+}
+
+#driverfgImage {
+  object-fit: contain;
+  width: 100%;
+
+  position: relative;
+}
+
 
 .cardDiv {
     transition: background-color 0.3s ease;

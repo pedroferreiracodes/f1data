@@ -1,42 +1,22 @@
 import seasonsService from '../service/seasonsService.js';
 import seasonsView from '../view/seasonsView.js';
+import seasonPgView from '../view/seasonPgView.js';
 
 
 
 
+async function init(params) {
 
-
-async function init() {
-
-  seasonsView.clear();
-  const seasons = await seasonsService.getSeasons();
-  seasonsView.render(seasons)
-
-  const date = new Date();
-  let currentYear = date.getFullYear();
-
-
-  // let shouldStop = false;
-
-  // (async () => {
-  //   for (let i = currentYear; i > 1950; i--) {
-  //     if (shouldStop) {
-  //       break;
-  //     }
-
-  //     try {
-  //       const season = await seasonsService.getSeason(i);
-        
-  //       window.addEventListener("hashchange", () => {
-  //         shouldStop = true;
-  //       });
-
-  //       seasonsView.render(season);
-  //     } catch (error) {
-  //       console.error(`Failed to fetch season for year ${i}:`, error);
-  //     }
-  //   }
-  // })();
-}
+  if (params && params.id) {
+    seasonPgView.clear();
+    const season = await seasonsService.getSeason(params.id);
+    seasonPgView.render(season)
+    console.log(season);
+  } else {
+    seasonsView.clear();
+    const seasons = await seasonsService.getSeasons();
+    seasonsView.render(seasons);
+  }
+};
 
 export default { init };

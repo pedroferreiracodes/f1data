@@ -8,6 +8,28 @@ async function render(drivers) {
 
   const container = $('#container');
 
+  const introduction = $("<div>").addClass("driversIntro");
+  introduction.html(`<h4>BROWSE F1 DRIVERS</h4>`);
+  container.append(introduction);
+
+  const driversTitle = $("<div>").addClass("driversTitle");
+  driversTitle.html(`<h1>DRIVERS</h1>`);
+  container.append(driversTitle);
+
+  //const driverImg = $("<div>").addClass("driversTitleImage");
+  //const bgImage = $("<img>").attr({ src: 'rsr/img/driversViewImg_bg.jpg', id: 'driverbgImage' });
+  //driverImg.append(bgImage);
+  const fgImage = $("<img>").attr({ src: 'rsr/img/driversViewImg_fg.png', id: 'driverfgImage', class: 'driversTitleImage' });
+  //driverImg.append(fgImage);
+  container.append(fgImage)
+
+  $(window).on('scroll', function () {
+    var scrollPosition = $(this).scrollTop();
+    var offset = scrollPosition * 0.05;
+
+    $('#driverfgImage').css({transform: 'translateX(' + offset + 'px'});
+  });
+
   const formDiv = $("<div>").addClass("formDiv");
   const filterForm = $('<form>').addClass("filterForm");
   const filterByLabel = $('<label>').attr({
@@ -74,7 +96,7 @@ async function render(drivers) {
 
 
   const list = $('<div>').addClass("list driverList");
-      container.append(list);
+  container.append(list);
 
   function renderDrivers(drivers) {
     list.html("");
@@ -99,7 +121,7 @@ async function render(drivers) {
 
 
   let filteredDrivers = drivers;
-console.log(drivers);
+  console.log(drivers);
 
   function applyFilters() {
     const nationalitySearchTerm = countryInput.val().trim().toLowerCase();

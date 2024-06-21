@@ -65,7 +65,7 @@ async function render(seasons) {
     seasons.forEach(({ season, ConstructorStandings, constructorLogo }) => {
       const seasonItem = $("<div>");
       seasonItem.html(`
-    <a href="#/season/${season}">
+    <a href="#/seasons/${season}">
         <div class="cardDiv seasonCard">
           <div class="seasonImgDiv seasonCard">
             <img class="seasonCardImg seasonCard" src="${constructorLogo}" alt="${ConstructorStandings[0].Constructor.name} logo">

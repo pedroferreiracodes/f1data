@@ -7,16 +7,24 @@ export default {
     path: '/circuits',
     controller: 'circuitController'
   },
-  circuitPg: {
-    path: '/circuits/',
-    controller: 'circuitPgController'
+  circuitPage: {
+    path: '/circuits/:id',
+    controller: 'circuitController'
   },
   seasons: {
     path: '/seasons',
     controller: 'seasonsController'
   },
+  seasonPage: {
+    path: '/seasons/:id',
+    controller: 'seasonsController'
+  },
   drivers: {
     path: '/drivers',
+    controller: 'driverController'
+  },
+  driverPage: {
+    path: '/drivers/:id',
     controller: 'driverController'
   },
   about: {

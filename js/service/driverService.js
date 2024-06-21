@@ -20,6 +20,22 @@ async function fetchDrivers() {
     return driversArr;
 }
 
+async function fetchDriverById(driverId) {
+
+    const response = await fetch(`https://ergast.com/api/f1/drivers/${driverId}.json`)
+    const data = await response.json();
+    const driver = data.MRData.DriverTable.Drivers[0];
+    const croppedWikiUrl = await driver.url.split(/\/|#/).pop();
+    driver.photo = await getDriverPhoto(croppedWikiUrl);
+    if (!driver.photo) {
+        const remadeUrl = driver.url;
+        if (!driver.photo) {
+            driver.photo = "rsr/img/scottChegg.jpg";
+        }
+    }
+    return driver;
+}
+
 async function getDriverPhoto(croppedWikiUrl) {
 
     try {
@@ -56,9 +72,9 @@ async function getDriverRaceWins(driver) {
 
 
 
-async function getDriver(index) {
-    const drivers = await fetchDrivers();
-    return drivers[index]
+async function getDriver(driverId) {
+    const driver = await fetchDriverById(driverId);
+    return driver;
 };
 
 async function getDrivers() {

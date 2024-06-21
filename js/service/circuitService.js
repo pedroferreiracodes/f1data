@@ -21,6 +21,24 @@ async function fetchCircuits() {
     return circuitArr;
 }
 
+async function fetchCircuit(cId) {
+
+    const response = await fetch(`https://ergast.com/api/f1/circuits/${cId}.json`)
+    const data = await response.json();
+
+    const circuit = data.MRData.CircuitTable.Circuits[0];
+    const croppedWikiUrl = await circuit.url.split(/\/|#/).pop();
+    circuit.photo = await getCircuitPhoto(croppedWikiUrl);
+    if (!circuit.photo) {
+        const remadeUrl = await circuit.url.split(/\/|#/).splice(-2, 1)[0];
+        circuit.photo = await getCircuitPhoto(remadeUrl);
+        if (!circuit.photo) {
+            circuit.photo = "/rsr/img/placeholder_track.jpg";
+        }
+    }
+    return circuit;
+}
+
 async function getCircuitPhoto(croppedWikiUrl) {
 
     try {
@@ -40,11 +58,8 @@ async function getCircuitPhoto(croppedWikiUrl) {
 
 
 async function getCircuit(cId) {
-    console.log(cId);
-    let circuits = await fetchCircuits();
-    let foundCircuit = circuits.find(circuits => circuits[circuitName] === cId);
-    console.log(circuits);
-    return foundCircuit;
+    const circuit = await fetchCircuit(cId);
+    return circuit;
 };
 
 async function getCircuits() {

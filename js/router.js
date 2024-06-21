@@ -7,10 +7,10 @@ function setCurrentRoute({ path, controller }) {
 
 }
 
-async function launchController(controllerName) {
+async function launchController(controllerName, params) {
 
   const module = await import(`./controller/${controllerName}.js`)
-  module.default.init();
+  module.default.init(params);
 }
 
 function navigate(path) {
@@ -19,11 +19,31 @@ function navigate(path) {
     return;
   }
 
-  const routeKey = Object.keys(routes).find(key => routes[key].path === path);
-  const route = routes[routeKey] || routes.home;
+  let matchedRoute = null;
+  let params = {};
 
-  setCurrentRoute(route);
-  launchController(route.controller)
+  Object.keys(routes).forEach(key => {
+    const route = routes[key];
+    const routePattern = route.path.replace(/:\w+/g, '([^/]+)');
+    const regex = new RegExp(`^${routePattern}$`);
+    const match = path.match(regex);
+
+
+    if (match) {
+      matchedRoute = route;
+      const keys = (route.path.match(/:\w+/g) || []).map(k => k.substring(1));
+      keys.forEach((key, index) => {
+        params[key] = match[index + 1];
+      });
+    }
+  });
+
+  if (!matchedRoute) {
+    matchedRoute = routes.home;
+  }
+
+  setCurrentRoute(matchedRoute);
+  launchController(matchedRoute.controller, params);
 
 }
 
