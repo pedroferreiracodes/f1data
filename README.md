@@ -11,11 +11,13 @@ Exercise on SPA development, dinamically generating views using Javascript DOM m
 ### Features:
 
 **Circuits**
+
 - Explore details of all 77 circuits that have hosted F1 events
 - Filter circuits by country to quickly find circuits in specific locations
 
 
 **Drivers**
+
 - Access information on all 859 drivers who have participated in F1
 - Filter drivers by nationality to discover drivers from specific countries
 
@@ -26,8 +28,6 @@ Exercise on SPA development, dinamically generating views using Javascript DOM m
 
 **To be implemented:**
 
-- Home Page
-- Sort drivers by titles
 - Dinamically generated view for each circuit, driver and season
 
 **Data Sources:**
