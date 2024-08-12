@@ -16,18 +16,14 @@ async function render(drivers) {
   driversTitle.html(`<h1>DRIVERS</h1>`);
   container.append(driversTitle);
 
-  //const driverImg = $("<div>").addClass("driversTitleImage");
-  //const bgImage = $("<img>").attr({ src: 'rsr/img/driversViewImg_bg.jpg', id: 'driverbgImage' });
-  //driverImg.append(bgImage);
-  const fgImage = $("<img>").attr({ src: 'rsr/img/driversViewImg_fg.png', id: 'driverfgImage', class: 'driversTitleImage' });
-  //driverImg.append(fgImage);
-  container.append(fgImage)
+  const titleImage = $("<img>").attr({ src: 'rsr/img/driversViewImg.png', id: 'driverImage', class: 'driversTitleImage' });
+  container.append(titleImage);
 
   $(window).on('scroll', function () {
     var scrollPosition = $(this).scrollTop();
     var offset = scrollPosition * 0.05;
 
-    $('#driverfgImage').css({transform: 'translateX(' + offset + 'px'});
+    $('#driverImage').css({transform: 'translateX(' + offset + 'px'});
   });
 
   const formDiv = $("<div>").addClass("formDiv");
@@ -121,7 +117,6 @@ async function render(drivers) {
 
 
   let filteredDrivers = drivers;
-  console.log(drivers);
 
   function applyFilters() {
     const nationalitySearchTerm = countryInput.val().trim().toLowerCase();

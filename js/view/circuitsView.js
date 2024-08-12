@@ -1,9 +1,6 @@
 function clear() {
   const container = $('#container');
-  container.html('')
-  const seasonsTitle = $("<div>").addClass("viewTitle");
-  seasonsTitle.html(`<h1>CIRCUITS</h1>`);
-  container.append(seasonsTitle);
+  container.html("");
 }
 
 
@@ -11,81 +8,162 @@ async function render(circuits) {
 
   const container = $("#container");
 
-  const formDiv = $("<div>");
-  formDiv.css({
-    "display": "flex",
-    "justify-content": "center",
-    "position": "sticky",
-    "top": "0px",
-    "padding": "10px",
-    "z-index": "1",
-    "background-color": "grey"
+  const introduction = $("<div>").addClass("circuitsIntro");
+  introduction.html(`<h4>BROWSE F1 CIRCUITS</h4>`);
+  container.append(introduction);
+
+  const circuitsTitle = $("<div>").addClass("circuitsTitle");
+  circuitsTitle.html(`<h1>CIRCUITS</h1>`);
+  container.append(circuitsTitle);
+
+  const titleImageDiv = $("<div>").addClass("titleImageDiv");
+  const titleImage = $("<img>").attr({ src: 'rsr/img/circuitsViewImg.png', id: 'circuitImage', class: 'circuitsTitleImage' });
+  titleImageDiv.append(titleImage)
+  container.append(titleImageDiv);
+
+  $(window).on('scroll', function () {
+    var scrollPosition = $(this).scrollTop();
+    var offset = scrollPosition * -0.05;
+
+    $('#circuitImage').css({transform: 'translateX(' + offset + 'px'});
   });
 
-  const filterForm = $("<form>");
-  filterForm.css({
-    "background-color": "white",
-    "padding-top": "0.2%",
-    "padding-bottom": "0.2%",
-    "padding-left": "8%",
-    "padding-right": "8%",
-    "border-radius": "5px"
+
+  const formDiv = $("<div>").addClass("formDiv");
+  const filterForm = $('<form>').addClass("filterForm");
+  const filterByLabel = $('<label>').attr({
+    'for': 'countryInput',
+    'id': 'filterByLabel'
+  }).text('FILTER BY');
+
+  const countryInput = $('<input>').attr({
+    type: 'text',
+    placeholder: 'COUNTRY'
   });
 
-  const countryInput = $("<input>");
-  countryInput.attr({
-    "type": "text",
-    "placeholder": "Filter circuits by country"
+
+  const nameInput = $('<input>').attr({
+    type: 'text',
+    placeholder: 'NAME'
   });
 
-  countryInput.on("input", () => {
-    const searchTerm = countryInput.val().trim().toLowerCase();
-    const filteredCircuits = circuits.filter(({ Location }) =>
-      `${Location.country}`.toLowerCase().includes(searchTerm)
-    );
-    renderCircuits(filteredCircuits);
-  });
-
+  filterForm.append(filterByLabel)
   filterForm.append(countryInput);
+  filterForm.append(nameInput)
   formDiv.append(filterForm);
+
+  const orderByForm = $('<form>').addClass("orderByForm");
+  const orderByLabel = $('<label>').attr({
+    'for': 'orderByForm',
+    'id': 'orderByLabel'
+  }).text('ORDER BY');
+
+  const orderByNameOption = $('<div>').addClass("orderByOption");
+  const orderByNameOptionbtn = $('<div>').addClass("btn");
+  const orderByNameLabel = $('<label>').attr('for', 'orderByName').text('NAME');
+  const orderByNameInput = $('<input>').attr({
+
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByName',
+    value: 'name',
+    class: 'input'
+  });
+
+  const orderByCountryOption = $('<div>').addClass("orderByOption");
+  const orderByCountryOptionbtn = $('<div>').addClass("btn");
+  const orderByCountryLabel = $('<label>').attr('for', 'orderByCountry').text('COUNTRY');
+  const orderByCountryInput = $('<input>').attr({
+    type: 'radio',
+    name: 'orderBy',
+    id: 'orderByCountry',
+    value: 'country',
+    class: 'input'
+  });
+
+  orderByForm.append(orderByLabel);
+
+  orderByNameOptionbtn.append(orderByNameLabel)
+  orderByNameOption.append(orderByNameInput, orderByNameOptionbtn);
+  orderByCountryOptionbtn.append(orderByCountryLabel);
+  orderByCountryOption.append(orderByCountryInput, orderByCountryOptionbtn);
+
+  orderByForm.append(orderByNameOption, orderByCountryOption);
+  formDiv.append(orderByForm);
   container.append(formDiv);
 
-  const list = $("<div>");
-  list.html(`<div class="list"></div>`);
-  list.css({
-    "display": "grid",
-    "justify-content": "center",
-    "max-width": "95%",
-    "grid-template-columns": "repeat(auto-fill, minmax(300px, 500px))",
-    "gap": "20px",
-    "padding": "10px"
-  });
 
+  const list = $('<div>').addClass("list driverList");
+  container.append(list);
 
   function renderCircuits(circuits) {
-    console.log(circuits);
     list.html("");
     circuits.forEach(({ circuitName, url, Location, photo, circuitId }) => {
-      const { locality, country } = Location;
-      const item = $("<div>").html(`
-        <a href="#/circuits/${circuitId}">
-          <div class="cardDiv">
-          <img class="cardImg" src="${photo}" alt="Cars at racetrack">
-            <div class="cardTextDiv">
-              <h3 class="card-title">${circuitName}</h3>
-              <p class="card-text">${locality}, ${country}</p>
-            </div>
-          </div>
-        </a>
-      `);
-
-      list.append(item);
+      const {locality, country} = Location;
+      const circuitItem = $("<div>").html(`
+                          <a href="#/drivers/${circuitId}">
+                            <div class="cardDiv circuitCard">
+                              <div class="circuitImgDiv circuitCard">
+                                <img class="circuitCardImg circuitCard" src="${photo}" alt="${circuitName} photo">
+                              </div>
+                              <div class="cardTextDiv circuitCard">
+                                <h3 class="card-title circuitCard">${circuitName}</h3>
+                                <p class="card-text circuitCard"> ${locality}, ${country}</p>
+                              </div>
+                            </div>
+                          </a>`);
+      list.append(circuitItem);
     });
   }
 
-  renderCircuits(circuits);
 
-  container.append(list);
+
+
+  let filteredCircuits = circuits;
+
+  function applyFilters() {
+    const countrySearchTerm = countryInput.val().trim().toLowerCase();
+    const nameSearchTerm = nameInput.val().trim().toLowerCase();
+    const orderByInput = $('input[name="orderBy"]:checked').val();
+
+    let filteredCircuits = circuits.filter(({ Location, circuitName }) =>
+      Location.country.toLowerCase().includes(countrySearchTerm) &&
+      circuitName.toLowerCase().includes(nameSearchTerm)
+    );
+
+    orderCircuits(filteredCircuits, orderByInput);
+    renderCircuits(filteredCircuits);
+  }
+
+  applyFilters();
+  countryInput.on('input', applyFilters);
+  nameInput.on('input', applyFilters);
+  orderByForm.on('input', applyFilters)
+
+}
+
+
+function orderCircuits(filteredCircuits, orderByArg) {
+
+  if (orderByArg === "name") {
+
+    filteredCircuits.sort((a, b) => {
+      const nameA = a.circuitName.toLowerCase();
+      const nameB = b.circuitName.toLowerCase();
+      return nameA.localeCompare(nameB);
+    })
+  }
+
+  if (orderByArg === "country") {
+
+    filteredCircuits.sort((a, b) => {
+      const countryA = a.Location.country.toLowerCase();
+      const countryB = b.Location.country.toLowerCase();
+      return countryA.localeCompare(countryB);
+    })
+  }
+
+
 }
 
 export default { clear, render };

@@ -210,22 +210,64 @@ a {
 }
 
 .driversTitleImage {
-    max-width: 100%;
+    max-width: 85%;
     -webkit-filter: drop-shadow(0px 0px 15px rgb(15, 15, 10));
-    margin-top: -15vw;
+    margin-top: -18vw;
 }
 
-#driverbgImage {
+#driverImage {
   object-fit: contain;
   width: 100%;
-}
-
-#driverfgImage {
-  object-fit: contain;
-  width: 100%;
-
   position: relative;
 }
+
+
+
+.circuitsIntro {
+    display: flex;
+    justify-content: end;
+    margin-bottom: -5vh;
+}
+
+.circuitsIntro h4 {
+    font-style: italic;
+    font-size: 2vw;
+}
+
+.circuitsTitle {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    height: 16vh;
+    display: flex;
+    align-items: center;
+    justify-content:baseline;
+}
+
+.circuitsTitle h1 {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 16vh;
+}
+
+.titleImageDiv{
+    text-align: end;
+}
+
+.circuitsTitleImage {
+    max-width: 75%;
+    -webkit-filter: drop-shadow(0px 0px 15px rgb(15, 15, 10));
+    margin-top: -28vw;
+    margin-bottom: 4vh;
+}
+
+#circuitImage {
+  object-fit: contain;
+  width: 100%;
+  position: relative;
+}
+
 
 
 .cardDiv {
@@ -312,8 +354,9 @@ h1 {
     border-width: 0;
     max-width: 150px;
     background-color: rgb(15, 15, 10);
-    object-fit: contain;
-    min-width: auto;
+    object-fit: cover;
+    min-width: 150px;
+    object-position: top;
 }
 
 .homeSeasonCard.cardTextDiv {
@@ -521,7 +564,6 @@ label {
     border-radius: 0px;
     background-color: white;
     margin: 0px;
-    margin-right: 10px;
     width: 100px;
     height: 100px;
     object-position: top;
@@ -646,4 +688,140 @@ label {
 
 .driverCard:hover .driverCardImg {
     filter: brightness(1.05);
+}
+
+
+.circuitList {
+    display: grid;
+    max-width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(10vw, 30vw));
+    gap: 25px;
+    padding: 0px;
+}
+
+.circuitCard {
+    border-radius: 0px;
+    color: rgb(243, 241, 238);
+    background-color: rgb(15, 15, 10);
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    padding-left: 0px;
+    margin: 0px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.circuitImgDiv {
+    display: flex;
+    border-style: none;
+    margin-right: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 150px;
+    min-width: 150px;
+    height: 150px;
+    justify-content: center;
+    align-items: baseline;
+    overflow: hidden;
+}
+
+.circuitCardImg {
+    border-style: none;
+    padding: 5px;
+    border-radius: 0px;
+    object-fit: contain;
+    background-color: white;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    transition: filter 0.3s ease;
+}
+
+.circuitCard.cardTextDiv {
+    display: flex;
+    flex-direction: column;
+    border-style: none;
+    padding: 0px;
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.circuitCard.card-title {
+    border-style: none;
+    padding: 0px;
+    margin: 0;
+    color: rgb(243, 241, 238);
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.circuitCard.card-text {
+    border-style: none;
+    padding: 0px;
+    margin: 0;
+    font-size: 18px;
+    width: fit-content;
+    transition: color 0.3s ease;
+}
+
+.circuitCard:hover {
+    background-color: rgb(243, 241, 238);
+}
+
+.circuitCard:hover .card-title,
+.circuitCard:hover .card-text,
+.circuitCard:hover .cardTextDiv {
+    color: rgb(15, 15, 10);
+    background-color: rgb(243, 241, 238);
+}
+
+.circuitCard:hover .driverCardImg {
+    filter: brightness(1.05);
+}
+
+
+.aboutIntro {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -5vh;
+}
+
+.aboutIntro h4 {
+    font-style: italic;
+    font-size: 2vw;
+    margin-bottom: 5vh;
+}
+
+.aboutTitle {
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: rgb(243, 241, 238);
+    height: 16vh;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 15vh;
+}
+
+.aboutTitle h1 {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 16vh;
+}
+
+.aboutText{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.aboutText a {
+    font-size: 20px;
+    font-weight: 700;
+    font-style:normal;
+    text-decoration: none;
 }
