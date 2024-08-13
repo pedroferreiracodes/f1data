@@ -35,6 +35,7 @@ async function fetchSeason(seasonYear) {
     season.constructorChampName = season.ConstructorStandings[0].Constructor.name;
     const wikiUrl = season.ConstructorStandings[0].Constructor.url.split(/\/|#/).pop();
     season.constructorLogo = await getConstructorLogo(season.constructorChampName);
+    season.constructorColor = await getConstructorColor(season.constructorChampName);
     season.driverChampName = await getDriverChampName(season.driverChamp);
 
     return season;
@@ -121,7 +122,74 @@ async function getConstructorLogo(constructorChampName) {
         case "Vanwall":
             return "rsr/img/teams/logo_vanwall.jpg"
     }
+}
 
+
+async function getConstructorColor(constructorChampName) {
+
+    if (constructorChampName.includes("Lotus")) {
+        return "35,31,32,1";
+    };
+
+    if (constructorChampName.includes("Alpine")) {
+        return "0,92,169,1";
+    };
+    if (constructorChampName.includes("Haas")) {
+        return "255,255,255,1";
+    };
+    if (constructorChampName.includes("RB")) {
+        return "21,52,204,1";
+    };
+    switch (constructorChampName) {
+
+        case "Aston Martin":
+            return "10,90,79,1";
+
+        case "Red Bull":
+            return "1,30,74,1";
+
+        case "Mercedes":
+            return "145,145,145,1";
+
+        case "Brawn":
+            return "231,235,0,1";
+
+        case "Ferrari":
+            return "254,0,0,1";
+
+        case "Renault":
+            return "255,222,0,1";
+
+        case "McLaren":
+            return "255,127,0,1";
+
+        case "Williams":
+            return "4,30,65,1";
+
+        case "Benetton":
+            return "0,0,0,1";
+
+        case "Sauber":
+            return "255,255,255,1";
+
+        case "Tyrrell":
+            return "38,73,115,1";
+
+        case "Matra-Ford":
+            return "1,0,128,1";
+
+        case "Brabham-Repco":
+            return "47,47,121,1";
+
+        case "BRM":
+            return "11,47,95,1";
+
+        case "Cooper-Climax":
+            return "35,31,32,1";
+
+        case "Vanwall":
+            return "0,0,0,1"
+    }
 }
 
 async function getDriverChampName(driverObj) {
@@ -152,11 +220,11 @@ async function getDriverChampionship(year) {
         const driverChampionship = fetchedChamp.MRData.StandingsTable.StandingsLists[0].DriverStandings;
 
         await Promise.all(
-            driverChampionship.map(async ({ Driver }) => {
+            driverChampionship.map(async ({ Driver, Constructors }) => {
                 const croppedWikiUrl = Driver.url.split(/\/|#/).pop();
                 Driver.driverPhoto = await driverService.getDriverPhoto(croppedWikiUrl);
+                Driver.constructorColor = await getConstructorColor(Constructors[0].name);
             }))
-        console.log(driverChampionship);
         return driverChampionship;
 
     } catch (error) {
@@ -164,4 +232,33 @@ async function getDriverChampionship(year) {
     };
 }
 
-export default { getSeason, getSeasons, getConstructorChampionship, getDriverChampionship };
+async function getLastWeekend(){
+    
+    try{
+        const fetchedLastWeekendData = await fetch(`http://ergast.com/api/f1/current/last/results.json`);
+        const fetchedLastWeekendjson = await fetchedLastWeekendData.json();
+        const fetchedLastWeekend = fetchedLastWeekendjson.MRData.RaceTable.Races[0];
+        return fetchedLastWeekend;
+    }
+    catch (error) {
+        return null
+    }
+}
+
+
+async function getNextWeekend(round){
+    round++;
+    try{
+        const fetchedNextWeekendData = await fetch(`http://ergast.com/api/f1/2024/${round}.json`);
+        const fetchedNextWeekendjson = await fetchedNextWeekendData.json();
+        const fetchedNextWeekend = fetchedNextWeekendjson.MRData.RaceTable.Races[0];
+        return fetchedNextWeekend;
+    }
+    catch (error) {
+        return null
+    }
+}
+
+
+
+export default { getSeason, getSeasons, getConstructorChampionship, getDriverChampionship, getLastWeekend, getNextWeekend};

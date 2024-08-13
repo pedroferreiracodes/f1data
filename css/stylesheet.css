@@ -335,9 +335,9 @@ h1 {
     border-color: rgb(243, 241, 238);
     padding: 1vw;
     padding-left: 0;
+    padding-right: 0;
     margin: 0.5vw;
     min-width: 18vw;
-    max-width: 20vw;
     position: relative;
 }
 
@@ -361,22 +361,51 @@ h1 {
 
 .homeSeasonCard.cardTextDiv {
     display: flex;
-    flex-direction: column;
     border-style: none;
     padding: 0px;
+    margin-right: 0px;
+    flex-direction: column;
 }
 
 .homeSeasonCard.card-title {
     border-style: none;
     padding: 0px;
-    margin: 0
+    margin: 0;
+    min-width: fit-content;
+    height: fit-content;
+}
+
+#card-titleDiv{
+    margin: 0;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#driverChampPositionGradient {
+    border-width: 0;
+    margin: 0;
+    flex-grow: 1;
+    height: 75px;
+    align-self: center;
 }
 
 .homeSeasonCard.card-text {
     border-style: none;
     padding: 0px;
-    margin: 0;
-    font-size: 18px;
+    margin: 0px;
+    font-size: 14px;
+}
+
+.homeSeasonCard h3 {
+    padding: 0;
+    margin: 0px;
+    font-size: 50px;
+}
+
+.lastNextWeekendDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 

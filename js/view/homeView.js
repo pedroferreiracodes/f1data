@@ -3,7 +3,7 @@ function clear() {
   container.html('');
 }
 
-async function render(constructorChampionshipObj, driverChampionship) {
+async function render(constructorChampionshipObj, driverChampionship, lastWeekendObj, nextWeekendObj) {
 
   const container = $('#container');
 
@@ -42,11 +42,16 @@ async function render(constructorChampionshipObj, driverChampionship) {
         <a href="#/drivers/${Driver.driverId}">
           <div class="cardDiv homeSeasonCard">
             <img class="cardImg homeSeasonCard " src="${Driver.driverPhoto}" alt="${Driver.driverId} photo">
-            <div class="cardTextDiv homeSeasonCard ">
-              <h2 class="card-title homeSeasonCard ">${position}</h3>
-              <h3 class="card-title homeSeasonCard ">${Driver.givenName} ${Driver.familyName}</h3>
-              <p class="card-text homeSeasonCard ">${Constructors[0].name}</p>
-              <p class="card-text homeSeasonCard ">Current points: ${points}</p>
+            <div class="cardTextDiv homeSeasonCard">
+              <div class="cardTextDiv homeSeasonCard" id="card-titleDiv">
+                <h3 class="card-title homeSeasonCard ">${position}</h3>
+                <span class="card-title homeSeasonCard" id="driverChampPositionGradient" style="background: linear-gradient(to left, rgba(${Driver.constructorColor}) 0%, rgba(243, 241, 238, 0) 100%)"></span>
+              </div>
+              <div>
+                <h4 class="card-title homeSeasonCard ">${Driver.givenName} ${Driver.familyName}</h4>
+                <p class="card-text homeSeasonCard ">${Constructors[0].name}</p>
+                <p class="card-text homeSeasonCard ">Current points: ${points}</p>
+              </div>
             </div>
           </div>
         </a>
@@ -90,8 +95,8 @@ async function render(constructorChampionshipObj, driverChampionship) {
           <div class="cardDiv homeSeasonCard">
           <img class="cardImg homeSeasonCard " src="${Constructor.constructorLogo}" alt="${Constructor.name} Logo">
             <div class="cardTextDiv homeSeasonCard ">
-              <h2 class="card-title homeSeasonCard ">${position}</h3>
-              <h3 class="card-title homeSeasonCard ">${Constructor.name}</h3>
+              <h3 class="card-title homeSeasonCard ">${position}</h3>
+              <h4 class="card-title homeSeasonCard ">${Constructor.name}</h4>
               <p class="card-text homeSeasonCard ">Current points: ${points}</p>
             </div>
           </div>
@@ -114,6 +119,35 @@ async function render(constructorChampionshipObj, driverChampionship) {
 
   constructorList.scrollLeft(0);
   container.append(constructorList);
+
+  const currentSeasonHr = $("<hr>");
+  currentSeasonHr.css({ "border-top-style":"solid",
+                        "border-color": "rgb(243, 241, 238)",
+                        "border-width": "2px"});
+  container.append(currentSeasonHr);
+
+  const lastNextWeekend = $("<div>");
+  lastNextWeekend.addClass("lastNextWeekendDiv");
+
+  const lastWeekend = $("<div>").addClass("homeSeason homeWeekend");
+  lastWeekend.html(`<h2>LAST RACE</h2>
+                    <div>
+                      <h3>${lastWeekendObj.raceName}</h3>
+                    </div>`);
+  lastNextWeekend.append(lastWeekend);
+
+  const nextWeekend = $("<div>").addClass("homeSeason");
+  nextWeekend.html(`<h2>NEXT RACE</h2>
+                    <div>
+                      <h3>${nextWeekendObj.date}</h3>
+                      <h3>${nextWeekendObj.raceName}</h3>
+                      <a href="#/circuits/${nextWeekendObj.Circuit.circuitId}">
+                        <h4>${nextWeekendObj.Circuit.circuitName}</h4>
+                      </a>  
+                    </div>`);
+  lastNextWeekend.append(nextWeekend);
+
+  container.append(lastNextWeekend);
 
 }
 
